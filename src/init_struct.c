@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_coords.c                                     :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iporsenn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/10 14:29:25 by iporsenn          #+#    #+#             */
-/*   Updated: 2018/03/10 14:29:26 by iporsenn         ###   ########.fr       */
+/*   Created: 2018/03/11 13:47:03 by iporsenn          #+#    #+#             */
+/*   Updated: 2018/03/11 13:47:07 by iporsenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	print_coords(t_fdf *global)
+void	init_struct(t_fdf *global)
 {
-	int x;
-	int y;
-
-	y = -1;
-	while (++y < global->y_max)
-	{
-		x = -1;
-		while (++x < global->x_max)
-		{
-			ft_putnbr(global->coords.points[y][x]);
-			ft_putchar(' ');
-		}
-		ft_putchar('\n');
-	}
+	global->coords.points = NULL;
+	global->coords.dx = 0;
+	global->coords.dy = 0;
+	global->coords.xinc = 0;
+	global->coords.yinc = 0;
+	global->y_max = 0;
+	global->x_max = 0;
 }

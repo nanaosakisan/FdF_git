@@ -12,11 +12,31 @@
 
 #include "../includes/fdf.h"
 
-t_point		*init_tab(t_point *coords, int len_array, int cpt)
+static int		check_map(char *line, int len_array)
+{
+	int			i;
+	static int	cpt_x = 0;
+
+	if (cpt_x == 0)
+		cpt_x = len_array;
+	if ((cpt_x != len_array) || (len_array == 0))
+		error("not a valid map");
+	i = -1;
+	while (line[++i])
+	{
+		if ((line[i] == ' ') || (line[i] == '-')
+			|| (line[i] >= '0' && line[i] <= '9'))
+			;
+		else
+			error("not a valid map");
+	}
+	return (1);
+}
+
+static t_point	*init_tab(t_point *coords, int len_array, int cpt)
 {
 	int i;
 
-	ft_putendl("init tab");
 	if (!(coords->points = (int**)ft_memalloc(sizeof(int*) * cpt)))
 		return (NULL);
 	i = -1;
@@ -31,45 +51,31 @@ t_point		*init_tab(t_point *coords, int len_array, int cpt)
 static t_point	*fill_tab(t_point *coords, char **array, int y, int len_array)
 {
 	int x;
-	int i;
 
 	x = -1;
-	i = -1;
-	ft_putstr("len_array = ");
-	ft_putnbr_endl(len_array);
-	ft_putstr("y = ");
-	ft_putnbr_endl(y);
-	while (++i < len_array)
-	{
-		ft_putnbr(ft_atoi(array[i]));
-		ft_putchar(' ');
-	}
-	ft_putchar('\n');
 	while (++x < len_array)
-	{
-		ft_putstr("x = ");
-		ft_putnbr_endl(x);
 		coords->points[y][x] = ft_atoi(array[x]);
-		ft_putstr("z = ");
-		ft_putnbr_endl(ft_atoi(array[x]));
-	}
 	return (coords);
-
 }
 
-t_point			*parse_coords(t_point *coords, char *line, int cpt)
+t_fdf			*parse_coords(t_fdf *global, char *line, int cpt)
 {
 	char		**array;
 	int			len_array;
-	static int 	y = -1;
+	static int	y = -1;
 
 	len_array = count_word(line, ' ');
-	// ft_putstr("line = ");
-	// ft_putendl(line);
-	if (!coords->points)
-		init_tab(coords, len_array, cpt);
 	y++;
-	array = ft_strsplit(line, ' ');
-	fill_tab(coords, array, y, len_array);
-	return (coords);
+	if ((check_map(line, len_array)) == 1)
+	{
+		array = ft_strsplit(line, ' ');
+		if (!global->coords.points)
+			init_tab(&global->coords, len_array, cpt);
+		fill_tab(&global->coords, array, y, len_array);
+		global->x_max = len_array;
+		global->y_max = cpt;
+	}
+	else
+		return (0);
+	return (global);
 }

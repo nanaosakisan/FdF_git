@@ -14,17 +14,8 @@
 
 int		error(char *str)
 {
-	ft_putstr(str);
-	return (0);
-}
-
-void	init_struct(t_point *coords)
-{
-	coords->points = NULL;
-	coords->dx = 0;
-	coords->dy = 0;
-	coords->xinc = 0;
-	coords->yinc = 0;
+	ft_putendl_fd(str, 2);
+	exit(EXIT_FAILURE);
 }
 
 int		main(int ac, char **av)
@@ -35,7 +26,7 @@ int		main(int ac, char **av)
 	int 	cpt;
 	int 	ret;
 	char 	*line;
-	t_point	coords;
+	t_fdf	global;
 
 	if (ac != 2)
 		error("usage: ./fdf filename\n");
@@ -44,17 +35,16 @@ int		main(int ac, char **av)
 		fd = open(av[1], O_RDONLY);
 		line = NULL;
 		cpt = 0;
-		init_struct(&coords);
+		init_struct(&global);
 		while ((ret = get_next_line(fd, &line)) > 0)
 			cpt++;
 		lseek(fd, 0, SEEK_SET);
 		while ((ret = get_next_line(fd, &line)) > 0)
 		{
-			parse_coords(&coords, line, cpt);
-			ft_putendl("fin parsing line");
+			parse_coords(&global, line, cpt);
 			ft_strdel(&line);
 		}
-		print_coords(&coords);
+		print_coords(&global);
 	}
 	// ptr_mlx = mlx_init();
 	// ptr_win = mlx_new_window(ptr_mlx, 500, 500, "Buh");

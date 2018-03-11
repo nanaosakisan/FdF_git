@@ -40,7 +40,7 @@ static	char		**ft_malloc_array(const char *s, char c)
 	array = NULL;
 	word = 0;
 	word = ft_count_word(s, c);
-	if (!(array = (char **)ft_memalloc(sizeof(char *) * (word + 1))))
+	if (!(array = (char **)ft_memalloc(sizeof(char*) * word)))
 		return (NULL);
 	array[word] = NULL;
 	return (array);
@@ -69,7 +69,7 @@ static	char		**ft_fill_array(char **array, const char *s, char c)
 	while (s[start])
 	{
 		if ((s[start] != c && s[start - 1] == c)
-			|| (s[start] != c && !s[start - 1]))
+			|| (s[start] != c && start == 0))
 		{
 			*array = ft_strsub(s, (unsigned int)start,
 								ft_count_letter(s, start, c));
@@ -85,14 +85,14 @@ static	char		**ft_fill_array(char **array, const char *s, char c)
 char				**ft_strsplit(const char *s, char c)
 {
 	char	**array;
-	int		i;
+	int i;
 
 	array = NULL;
-	i = 0;
 	if (!s || !c)
 		return (NULL);
 	if (!(array = ft_malloc_array(s, c)))
 		return (NULL);
 	ft_fill_array(array, s, c);
+	i = -1;
 	return (array);
 }

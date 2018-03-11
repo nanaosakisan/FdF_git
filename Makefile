@@ -14,6 +14,7 @@ NAME = fdf
 
 SRC_PATH = src/
 SRC_NAME =	main.c 			\
+			init_struct.c	\
 			parsing.c		\
 			print_coords.c	\
 

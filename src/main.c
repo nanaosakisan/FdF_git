@@ -20,36 +20,54 @@ int		error(char *str)
 
 int		main(int ac, char **av)
 {
-	// void	*ptr_mlx;
-	// void	*ptr_win;
+	void	*p_mlx;
+	void	*p_win;
 	int 	fd;
 	int 	cpt;
 	int 	ret;
 	char 	*line;
 	t_fdf	global;
+	int		x;
+	int		y;
 
-	if (ac != 2)
-		error("usage: ./fdf filename\n");
+	if (ac != 2 || !av)
+		error("usage: ./fdf filename");
 	else
 	{
-		fd = open(av[1], O_RDONLY);
+		if ((fd = open(av[1], O_RDONLY)) == -1)
+			error("open() failed");
 		line = NULL;
 		cpt = 0;
 		init_struct(&global);
 		while ((ret = get_next_line(fd, &line)) > 0)
 			cpt++;
-		lseek(fd, 0, SEEK_SET);
+		if ((lseek(fd, 0, SEEK_SET)) == -1)
+			error("lseek() failed");
 		while ((ret = get_next_line(fd, &line)) > 0)
 		{
 			parse_coords(&global, line, cpt);
 			ft_strdel(&line);
 		}
-		print_coords(&global);
+		// print_coords(&global);
+		p_mlx = mlx_init();
+		p_win = mlx_new_window(p_mlx, 500, 500, "Buh");
+		y = 0;
+		while (y < global.height)
+		{
+			x = 0;
+			while (x < global.width)
+			{
+				if (x < global.width - 1)
+					draw_segment(x * PADDING, y * PADDING, (x + 1) * PADDING, y * PADDING, p_mlx, p_win);
+				if (y < global.height - 1)
+					draw_segment(x * PADDING, y * PADDING, x * PADDING, (y + 1) * PADDING, p_mlx, p_win);
+				x++;
+			}
+			y++;
+		}
+		mlx_loop(p_mlx);
+		if ((close(fd)) == -1)
+			error("closed() failed");
 	}
-	// ptr_mlx = mlx_init();
-	// ptr_win = mlx_new_window(ptr_mlx, 500, 500, "Buh");
-	// init_struct(&coords, x1, y1, x2, y2);
-	// draw_segment(&coords, ptr_mlx, ptr_win);
-	// mlx_loop(ptr_mlx);
 	return (0);
 }

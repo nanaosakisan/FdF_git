@@ -72,8 +72,8 @@ t_fdf			*parse_coords(t_fdf *global, char *line, int cpt)
 		if (!global->coords.points)
 			init_tab(&global->coords, len_array, cpt);
 		fill_tab(&global->coords, array, y, len_array);
-		global->x_max = len_array;
-		global->y_max = cpt;
+		global->width = len_array;
+		global->height = cpt;
 	}
 	else
 		return (0);

@@ -18,10 +18,10 @@ void	print_coords(t_fdf *global)
 	int y;
 
 	y = -1;
-	while (++y < global->y_max)
+	while (++y < global->height)
 	{
 		x = -1;
-		while (++x < global->x_max)
+		while (++x < global->width)
 		{
 			ft_putnbr(global->coords.points[y][x]);
 			ft_putchar(' ');

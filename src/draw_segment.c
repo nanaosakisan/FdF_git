@@ -12,64 +12,62 @@
 
 #include "../includes/fdf.h"
 
-void		init_struct(t_point *coords, int i1, int y1, int x2, int y2)
-{
-
-	coords->x = x1;
-	coords->y = y1;
-	coords->dx = x2 - x1;
-	coords->dy = y2 - y1;
-	coords->xinc = (coords->dx > 0) ? 1 : -1;
-	coords->yinc = (coords->dy > 0) ? 1 : -1;
-	coords->dx = abs(coords->dx);
-	coords->dy = abs(coords->dy);
-}
-
-static void		draw_horizontal_segment(t_point *coords, void *ptr_mlx, void *ptr_win)
+static void		draw_horizontal_segment(int x1, int y1, int dx, int dy, int xinc, int yinc, void *ptr_mlx, void *ptr_win)
 {
 	int i;
 	int cumul;
 
-	cumul = coords->dx / 2;
+	cumul = dx / 2;
 	i = -1;
-	while (++i <= coords->dx)
+	while (++i < dx)
 	{
-		coords->x += coords->xinc;
-		cumul += coords->dy;
-		if (cumul >= coords->dx)
+		x1 += xinc;
+		cumul += dy;
+		if (cumul >= dx)
 		{
-			cumul -= coords->dx;
-			coords->y += coords->yinc;
+			cumul -= dx;
+			y1 += yinc;
 		}
-		mlx_pixel_put(ptr_mlx, ptr_win, coords->x, coords->y, 0xFFFFFF);
+		mlx_pixel_put(ptr_mlx, ptr_win, x1, y1, 0xFFFFFF);
 	}
 }
 
-static void		draw_vertical_segment(t_point *coords, void *ptr_mlx, void *ptr_win)
+static void		draw_vertical_segment(int x1, int y1, int dx, int dy, int xinc, int yinc, void *ptr_mlx, void *ptr_win)
 {
 	int i;
 	int cumul;
 
-	cumul = coords->dy / 2;
+	cumul = dy / 2;
 	i = -1;
-	while (++i <= coords->dy)
+	while (++i < dy)
 	{
-		coords->y += coords->yinc;
-		cumul += coords->dy;
-		if (cumul >= coords->dy)
+		y1 += yinc;
+		cumul += dx;
+		if (cumul >= dy)
 		{
-			cumul -= coords->dy;
-			coords->x += coords->xinc;
+			cumul -= dy;
+			x1 += xinc;
 		}
-		mlx_pixel_put(ptr_mlx, ptr_win, coords->x, coords->y, 0xFFFFFF);
+		mlx_pixel_put(ptr_mlx, ptr_win, x1, y1, 0xFFFFFF);
 	}
 }
 
-void			draw_segment(t_point *coords, void *ptr_mlx, void *ptr_win)
+void			draw_segment(int x1, int y1, int x2, int y2, void *ptr_mlx, void *ptr_win)
 {
-	mlx_pixel_put(ptr_mlx, ptr_win, coords->x, coords->y, 0xFFFFFF);
-	if (coords->dx > coords->dy)
-		draw_horizontal_segment(coords, ptr_mlx, ptr_win);
+	int dx;
+	int dy;
+	int xinc;
+	int yinc;
+
+	dx = x2 - x1;
+	dy = y2 - y1;
+	xinc = (dx > 0) ? 1 : -1;
+	yinc = (dy > 0) ? 1 : -1;
+	dx = abs(dx);
+	dy = abs(dy);
+	mlx_pixel_put(ptr_mlx, ptr_win, x1, y1, 0xFFFFFF);
+	if (dx > dy)
+		draw_horizontal_segment(x1, y1, dx, dy, xinc, yinc, ptr_mlx, ptr_win);
 	else
-		draw_vertical_segment(coords, ptr_mlx, ptr_win);
+		draw_vertical_segment(x1, y1, dx, dy, xinc, yinc, ptr_mlx, ptr_win);
 }

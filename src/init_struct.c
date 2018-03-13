@@ -19,6 +19,6 @@ void	init_struct(t_fdf *global)
 	global->coords.dy = 0;
 	global->coords.xinc = 0;
 	global->coords.yinc = 0;
-	global->y_max = 0;
-	global->x_max = 0;
+	global->height = 0;
+	global->width = 0;
 }

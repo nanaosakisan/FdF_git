@@ -58,7 +58,7 @@ static t_point	*fill_tab(t_point *coords, char **array, int y, int len_array)
 	return (coords);
 }
 
-t_fdf			*parse_coords(t_fdf *global, char *line, int cpt)
+static t_fdf	*parse_coords(t_fdf *global, char *line, int cpt)
 {
 	char		**array;
 	int			len_array;
@@ -77,5 +77,26 @@ t_fdf			*parse_coords(t_fdf *global, char *line, int cpt)
 	}
 	else
 		return (0);
+	return (global);
+}
+
+t_fdf			*launch_parse(int fd, t_fdf *global)
+{
+	int		ret;
+	int		cpt;
+	char	*line;
+
+	line = NULL;
+	cpt = 0;
+	init_struct(global);
+	while ((ret = get_next_line(fd, &line)) > 0)
+		cpt++;
+	if ((lseek(fd, 0, SEEK_SET)) == -1)
+		error("lseek() failed");
+	while ((ret = get_next_line(fd, &line)) > 0)
+	{
+		parse_coords(global, line, cpt);
+		ft_strdel(&line);
+	}
 	return (global);
 }

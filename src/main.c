@@ -18,17 +18,23 @@ int		error(char *str)
 	exit(EXIT_FAILURE);
 }
 
+int		deal_key(int key, t_fdf *global)
+{
+	if (key == 116)
+	{
+		global->pad = global->pad + 10;
+		launch_map(p_mlx, p_win, global);
+
+	}
+	return (0);
+}
+
 int		main(int ac, char **av)
 {
 	void	*p_mlx;
 	void	*p_win;
 	int 	fd;
-	int 	cpt;
-	int 	ret;
-	char 	*line;
 	t_fdf	global;
-	int		x;
-	int		y;
 
 	if (ac != 2 || !av)
 		error("usage: ./fdf filename");
@@ -36,35 +42,12 @@ int		main(int ac, char **av)
 	{
 		if ((fd = open(av[1], O_RDONLY)) == -1)
 			error("open() failed");
-		line = NULL;
-		cpt = 0;
-		init_struct(&global);
-		while ((ret = get_next_line(fd, &line)) > 0)
-			cpt++;
-		if ((lseek(fd, 0, SEEK_SET)) == -1)
-			error("lseek() failed");
-		while ((ret = get_next_line(fd, &line)) > 0)
-		{
-			parse_coords(&global, line, cpt);
-			ft_strdel(&line);
-		}
-		// print_coords(&global);
-		p_mlx = mlx_init();
-		p_win = mlx_new_window(p_mlx, 500, 500, "Buh");
-		y = 0;
-		while (y < global.height)
-		{
-			x = 0;
-			while (x < global.width)
-			{
-				if (x < global.width - 1)
-					draw_segment(x * PADDING, y * PADDING, (x + 1) * PADDING, y * PADDING, p_mlx, p_win);
-				if (y < global.height - 1)
-					draw_segment(x * PADDING, y * PADDING, x * PADDING, (y + 1) * PADDING, p_mlx, p_win);
-				x++;
-			}
-			y++;
-		}
+		launch_parse(fd, &global);
+		global->p_mlx = mlx_init();
+		global->p_win = mlx_new_window(p_mlx, WIDTH, HEIGHT, "Buh");
+		launch_map(&global);
+		mlx_key_hook(p_win, deal_key, (void*)&global);
+		mlx_mouse_hook(p_win, deal_key, (void*)0);
 		mlx_loop(p_mlx);
 		if ((close(fd)) == -1)
 			error("closed() failed");

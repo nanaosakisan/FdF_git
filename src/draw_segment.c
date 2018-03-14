@@ -12,62 +12,65 @@
 
 #include "../includes/fdf.h"
 
-static void		draw_horizontal_segment(int x1, int y1, int dx, int dy, int xinc, int yinc, void *ptr_mlx, void *ptr_win)
+static void		draw_hor_segment(int *coord, int *diff, int *inc, void **ptr)
+{
+	int i;
+	int cumul;
+	int x1;
+
+	x1 = coord[1];
+	cumul = diff[1] / 2;
+	i = -1;
+	while (++i < diff[1])
+	{
+		x1 += inc[1];
+		cumul += diff[0];
+		if (cumul >= diff[1])
+		{
+			cumul -= diff[1];
+			coord[0] += inc[0];
+		}
+		mlx_pixel_put(ptr[0], ptr[1], x1, coord[0], 0xFFFFFF);
+	}
+}
+
+static void		draw_ver_segment(int *coord, int *diff, int *inc, void **ptr)
 {
 	int i;
 	int cumul;
 
-	cumul = dx / 2;
+	cumul = diff[0] / 2;
 	i = -1;
-	while (++i < dx)
+	while (++i < diff[0])
 	{
-		x1 += xinc;
-		cumul += dy;
-		if (cumul >= dx)
+		coord[0] += inc[0];
+		cumul += diff[1];
+		if (cumul >= diff[0])
 		{
-			cumul -= dx;
-			y1 += yinc;
+			cumul -= diff[0];
+			coord[1] += inc[1];
 		}
-		mlx_pixel_put(ptr_mlx, ptr_win, x1, y1, 0xFFFFFF);
+		mlx_pixel_put(ptr[0], ptr[1], coord[1], coord[0], 0xFFFFFF);
 	}
 }
 
-static void		draw_vertical_segment(int x1, int y1, int dx, int dy, int xinc, int yinc, void *ptr_mlx, void *ptr_win)
+void			draw_segment(int *coord_src, int *coord_dst, void *p_mlx, void *p_win)
 {
-	int i;
-	int cumul;
+	int diff[2];
+	int inc[2];
+	void *ptr[2];
 
-	cumul = dy / 2;
-	i = -1;
-	while (++i < dy)
-	{
-		y1 += yinc;
-		cumul += dx;
-		if (cumul >= dy)
-		{
-			cumul -= dy;
-			x1 += xinc;
-		}
-		mlx_pixel_put(ptr_mlx, ptr_win, x1, y1, 0xFFFFFF);
-	}
-}
-
-void			draw_segment(int x1, int y1, int x2, int y2, void *ptr_mlx, void *ptr_win)
-{
-	int dx;
-	int dy;
-	int xinc;
-	int yinc;
-
-	dx = x2 - x1;
-	dy = y2 - y1;
-	xinc = (dx > 0) ? 1 : -1;
-	yinc = (dy > 0) ? 1 : -1;
-	dx = abs(dx);
-	dy = abs(dy);
-	mlx_pixel_put(ptr_mlx, ptr_win, x1, y1, 0xFFFFFF);
-	if (dx > dy)
-		draw_horizontal_segment(x1, y1, dx, dy, xinc, yinc, ptr_mlx, ptr_win);
+	diff[0] = coord_dst[0] - coord_src[0];
+	diff[1] = coord_dst[1] - coord_src[1];
+	inc[0] = (diff[0] > 0) ? 1 : -1;
+	inc[1] = (diff[1] > 0) ? 1 : -1;
+	diff[0] = abs(diff[0]);
+	diff[1] = abs(diff[1]);
+	ptr[0] = p_mlx;
+	ptr[1] = p_win;
+	mlx_pixel_put(p_mlx, p_win, coord_src[1], coord_src[0], 0xFFFFFF);
+	if (diff[1] > diff[0])
+		draw_hor_segment(coord_src, diff, inc, ptr);
 	else
-		draw_vertical_segment(x1, y1, dx, dy, xinc, yinc, ptr_mlx, ptr_win);
+		draw_ver_segment(coord_src, diff, inc, ptr);
 }

@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* **********p**************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
@@ -19,7 +19,6 @@
 
 # define	HEIGHT	500
 # define	WIDTH	500
-# define	PADDING 30
 
 typedef	struct	s_point
 {
@@ -33,16 +32,19 @@ typedef	struct	s_point
 typedef struct	s_fdf
 {
 	t_point coords;
+	void 	*p_mlx;
+	void	*p_win;
 	int		height;
 	int 	width;
+	int		pad;
 }				t_fdf;
 
 int				main(int ac, char **av);
 int				error(char *str);
 void			init_struct(t_fdf *global);
-t_fdf			*parse_coords(t_fdf *coords, char *line, int cpt);
+void			launch_map(void *p_mlx, void *p_win, t_fdf *global);
+t_fdf			*launch_parse(int fd, t_fdf *global);
 void			print_coords(t_fdf *global);
-void			draw_segment(int x1, int y1, int x2, int y2, void *p_mlx, void *p_win);
-void			init_coords(t_point *coords);
+void			draw_segment(int *coord_src, int *coord_dst, void *p_mlx, void *p_win);
 
 #endif

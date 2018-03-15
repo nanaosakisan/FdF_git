@@ -88,7 +88,7 @@ t_fdf			*launch_parse(int fd, t_fdf *global)
 
 	line = NULL;
 	cpt = 0;
-	init_struct(global);
+	init_struct_global(global);
 	while ((ret = get_next_line(fd, &line)) > 0)
 		cpt++;
 	if ((lseek(fd, 0, SEEK_SET)) == -1)

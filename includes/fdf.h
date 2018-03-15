@@ -20,6 +20,17 @@
 # define	HEIGHT	500
 # define	WIDTH	500
 
+typedef	struct s_img
+{
+	void 	*p_mlx;
+	void	*p_win;
+	void	*p_img;
+	char	*img_addr;
+	int		bpp;
+	int		size;
+	int 	endian;
+}				t_img;
+
 typedef	struct	s_point
 {
 	int **points;
@@ -32,19 +43,20 @@ typedef	struct	s_point
 typedef struct	s_fdf
 {
 	t_point coords;
-	void 	*p_mlx;
-	void	*p_win;
+	t_img	img;
+	char 	*name;
 	int		height;
 	int 	width;
 	int		pad;
 }				t_fdf;
 
+
 int				main(int ac, char **av);
 int				error(char *str);
-void			init_struct(t_fdf *global);
-void			launch_map(void *p_mlx, void *p_win, t_fdf *global);
+void			init_struct_global(t_fdf *global);
+void			launch_map(t_fdf *global);
 t_fdf			*launch_parse(int fd, t_fdf *global);
 void			print_coords(t_fdf *global);
-void			draw_segment(int *coord_src, int *coord_dst, void *p_mlx, void *p_win);
+void			draw_segment(int *coord_src, int *coord_dst, t_fdf *global);
 
 #endif

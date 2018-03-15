@@ -12,16 +12,32 @@
 
 #include "../includes/fdf.h"
 
-void	init_struct(t_fdf *global)
+static void		init_struct_coord(t_fdf *global)
 {
 	global->coords.points = NULL;
 	global->coords.dx = 0;
 	global->coords.dy = 0;
 	global->coords.xinc = 0;
 	global->coords.yinc = 0;
-	global->p_mlx = NULL;
-	global->p_win = NULL;
+}
+
+static void		init_struct_img(t_fdf *global)
+{
+
+	global->img.bpp = 0;
+	global->img.size = 0;
+	global->img.endian = 0;
+	global->img.p_mlx = NULL;
+	global->img.p_win = NULL;
+	global->img.p_img = NULL;
+	global->img.img_addr = NULL;
+}
+
+void			init_struct_global(t_fdf *global)
+{
 	global->height = 0;
 	global->width = 0;
 	global->pad = 30;
+	init_struct_coord(global);
+	init_struct_img(global);
 }

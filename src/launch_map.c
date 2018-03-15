@@ -32,7 +32,7 @@ static int	*init_pos(int *pos, t_fdf *global)
 	return (pos);
 }
 
-void		launch_map(void *p_mlx, void *p_win, t_fdf *global)
+void		launch_map(t_fdf *global)
 {
 	int	coord_src[2];
 	int	coord_dst[2];
@@ -42,6 +42,13 @@ void		launch_map(void *p_mlx, void *p_win, t_fdf *global)
 
 	y = -1;
 	init_pos(pos, global);
+	if (!global->img.p_mlx && !global->img.p_win)
+	{
+		global->img.p_mlx = mlx_init();
+		global->img.p_win = mlx_new_window(global->img.p_mlx, WIDTH, HEIGHT, global->name);
+	}
+	global->img.p_img = mlx_new_image(global->img.p_mlx, WIDTH, HEIGHT);
+	global->img.img_addr = mlx_get_data_addr(global->img.p_img, &global->img.bpp, &global->img.size, &global->img.endian);
 	while (++y < global->height)
 	{
 		x = -1;
@@ -53,14 +60,16 @@ void		launch_map(void *p_mlx, void *p_win, t_fdf *global)
 			{
 				coord_dst[0] = y * global->pad + pos[0];
 				coord_dst[1] = (x + 1) * global->pad + pos[1];
-				draw_segment(coord_src, coord_dst, p_mlx, p_win);
+				draw_segment(coord_src, coord_dst, global);
 			}
 			if (y < global->height - 1)
 			{
 				coord_dst[0] = (y + 1) * global->pad + pos[0];
 				coord_dst[1] = x * global->pad + pos[1];
-				draw_segment(coord_src,	coord_dst, p_mlx, p_win);
+				draw_segment(coord_src,	coord_dst, global);
 			}
 		}
 	}
+	mlx_put_image_to_window(global->img.p_mlx, global->img.p_win,
+							global->img.p_img, 0, 0);
 }

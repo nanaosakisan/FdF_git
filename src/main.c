@@ -23,16 +23,19 @@ int		deal_key(int key, t_fdf *global)
 	if (key == 116)
 	{
 		global->pad = global->pad + 10;
-		launch_map(p_mlx, p_win, global);
-
+		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+		launch_map(global);
+	}
+	if (key == 121)
+	{
+		global->pad = global->pad - 10;
+		launch_map(global);
 	}
 	return (0);
 }
 
 int		main(int ac, char **av)
 {
-	void	*p_mlx;
-	void	*p_win;
 	int 	fd;
 	t_fdf	global;
 
@@ -42,13 +45,12 @@ int		main(int ac, char **av)
 	{
 		if ((fd = open(av[1], O_RDONLY)) == -1)
 			error("open() failed");
+		global.name = av[1];
 		launch_parse(fd, &global);
-		global->p_mlx = mlx_init();
-		global->p_win = mlx_new_window(p_mlx, WIDTH, HEIGHT, "Buh");
 		launch_map(&global);
-		mlx_key_hook(p_win, deal_key, (void*)&global);
-		mlx_mouse_hook(p_win, deal_key, (void*)0);
-		mlx_loop(p_mlx);
+		mlx_key_hook(global.img.p_win, deal_key, (void*)&global);
+		mlx_mouse_hook(global.img.p_win, deal_key, (void*)0);
+		mlx_loop(global.img.p_mlx);
 		if ((close(fd)) == -1)
 			error("closed() failed");
 	}

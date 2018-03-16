@@ -33,11 +33,22 @@ static void		init_struct_img(t_fdf *global)
 	global->img.img_addr = NULL;
 }
 
+static void		init_struct_tmp(t_fdf *global)
+{
+	global->tmp.pad = global->pad;
+}
+
 void			init_struct_global(t_fdf *global)
 {
 	global->height = 0;
 	global->width = 0;
 	global->pad = 30;
+	global->function[0] = &zoom_in;
+	global->function[1] = &zoom_out;
+	global->function[2] = &init_map;
+	global->function[3] = &close_map;
+	global->len_array = 4;
 	init_struct_coord(global);
 	init_struct_img(global);
+	init_struct_tmp(global);
 }

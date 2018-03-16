@@ -18,22 +18,6 @@ int		error(char *str)
 	exit(EXIT_FAILURE);
 }
 
-int		deal_key(int key, t_fdf *global)
-{
-	if (key == 116)
-	{
-		global->pad = global->pad + 10;
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-	}
-	if (key == 121)
-	{
-		global->pad = global->pad - 10;
-		launch_map(global);
-	}
-	return (0);
-}
-
 int		main(int ac, char **av)
 {
 	int 	fd;

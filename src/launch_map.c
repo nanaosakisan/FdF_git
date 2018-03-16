@@ -41,6 +41,8 @@ void		launch_map(t_fdf *global)
 	int pos[2];
 
 	y = -1;
+	// ft_putstr("pad = ");
+	// ft_putnbr_endl(global->pad);
 	init_pos(pos, global);
 	if (!global->img.p_mlx && !global->img.p_win)
 	{

@@ -12,7 +12,7 @@
 
 #include "../includes/fdf.h"
 
-static int	*init_pos(int *pos, t_fdf *global)
+static void	init_pos(t_fdf *global)
 {
 	int y;
 	int x;
@@ -27,9 +27,8 @@ static int	*init_pos(int *pos, t_fdf *global)
 	x = 0;
 	while (x_max++ <= WIDTH)
 		x++;
-	pos[0] = y / 2;
-	pos[1] = x / 2;
-	return (pos);
+	global->coords.pos[0] = y / 2 + global->coords.move[0];
+	global->coords.pos[1] = x / 2 + global->coords.move[1];
 }
 
 void		launch_map(t_fdf *global)
@@ -38,12 +37,9 @@ void		launch_map(t_fdf *global)
 	int	coord_dst[2];
 	int x;
 	int y;
-	int pos[2];
 
 	y = -1;
-	// ft_putstr("pad = ");
-	// ft_putnbr_endl(global->pad);
-	init_pos(pos, global);
+	init_pos(global);
 	if (!global->img.p_mlx && !global->img.p_win)
 	{
 		global->img.p_mlx = mlx_init();
@@ -56,18 +52,18 @@ void		launch_map(t_fdf *global)
 		x = -1;
 		while (++x < global->width)
 		{
-			coord_src[0] = y * global->pad + pos[0];
-			coord_src[1] = x * global->pad + pos[1];
+			coord_src[0] = y * global->pad + global->coords.pos[0];
+			coord_src[1] = x * global->pad + global->coords.pos[1];
 			if (x < global->width - 1)
 			{
-				coord_dst[0] = y * global->pad + pos[0];
-				coord_dst[1] = (x + 1) * global->pad + pos[1];
+				coord_dst[0] = y * global->pad + global->coords.pos[0];
+				coord_dst[1] = (x + 1) * global->pad + global->coords.pos[1];
 				draw_segment(coord_src, coord_dst, global);
 			}
 			if (y < global->height - 1)
 			{
-				coord_dst[0] = (y + 1) * global->pad + pos[0];
-				coord_dst[1] = x * global->pad + pos[1];
+				coord_dst[0] = (y + 1) * global->pad + global->coords.pos[0];
+				coord_dst[1] = x * global->pad + global->coords.pos[1];
 				draw_segment(coord_src,	coord_dst, global);
 			}
 		}

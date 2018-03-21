@@ -16,7 +16,8 @@ SRC_PATH = src/
 SRC_NAME =	main.c 			\
 			draw_segment.c	\
 			init_struct.c	\
-			key_hook.c		\
+			key_hook_1.c	\
+			key_hook_2.c	\
 			launch_map.c	\
 			parsing.c		\
 			print_coords.c	\

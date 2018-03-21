@@ -50,7 +50,8 @@ static void		draw_hor_segment(int *coord, int *diff, int *inc, t_fdf *global)
 			cumul -= diff[1];
 			coord[0] += inc[0];
 		}
-		mlx_pixel_put_to_image(global, x1, coord[0], 0xFFFFFF);
+		if ((x1 > 0 && x1 < WIDTH) && (coord[0] > 0 && coord[0] < HEIGHT))
+			mlx_pixel_put_to_image(global, x1, coord[0], 0xFFFFFF);
 	}
 }
 
@@ -70,7 +71,8 @@ static void		draw_ver_segment(int *coord, int *diff, int *inc, t_fdf *global)
 			cumul -= diff[0];
 			coord[1] += inc[1];
 		}
-		mlx_pixel_put_to_image(global, coord[1], coord[0], 0xFFFFFF);
+		if ((coord[1] > 0 && coord[1] < WIDTH) && (coord[0] > 0 && coord[0] < HEIGHT))
+			mlx_pixel_put_to_image(global, coord[1], coord[0], 0xFFFFFF);
 	}
 }
 
@@ -85,7 +87,8 @@ void			draw_segment(int *coord_src, int *coord_dst, t_fdf *global)
 	inc[1] = (diff[1] > 0) ? 1 : -1;
 	diff[0] = abs(diff[0]);
 	diff[1] = abs(diff[1]);
-	mlx_pixel_put_to_image(global, coord_src[1], coord_src[0], 0xFFFFFF);
+	if ((coord_src[1] > 0 && coord_src[1] < WIDTH) && (coord_src[0] > 0 && coord_src[0] < HEIGHT))
+		mlx_pixel_put_to_image(global, coord_src[1], coord_src[0], 0xFFFFFF);
 	if (diff[1] > diff[0])
 		draw_hor_segment(coord_src, diff, inc, global);
 	else

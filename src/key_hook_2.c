@@ -12,11 +12,13 @@
 
 #include "../includes/fdf.h"
 
-int		zoom_in(t_fdf *global, int key)
+int		zoom(t_fdf *global, int key)
 {
 	int	i;
+	int j;
 
 	i = 116;
+	j = 121;
 	if (key == i)
 	{
 		global->pad = global->pad + 10;
@@ -24,15 +26,7 @@ int		zoom_in(t_fdf *global, int key)
 		launch_map(global);
 		return (1);
 	}
-	return (0);
-}
-
-int		zoom_out(t_fdf *global, int key)
-{
-	int i;
-
-	i = 121;
-	if (key == i)
+	if (key == j)
 	{
 		if (global->pad > 10)
 		{
@@ -47,14 +41,23 @@ int		zoom_out(t_fdf *global, int key)
 	return (0);
 }
 
-int		move_up(t_fdf *global, int key)
+int		rotation_z(t_fdf *global, int key)
 {
 	int i;
+	int j;
 
-	i = 126;
+	i = 69;
+	j = 78;
 	if (key == i)
 	{
-		global->coords.move[0] = global->coords.move[0] - 10;
+		global->coords.angle_z = global->coords.angle_z + 0.1;
+		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+		launch_map(global);
+		return (1);
+	}
+	if (key == j)
+	{
+		global->coords.angle_z = global->coords.angle_z - 0.1;
 		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 		launch_map(global);
 		return (1);
@@ -62,17 +65,51 @@ int		move_up(t_fdf *global, int key)
 	return (0);
 }
 
-int		move_down(t_fdf *global, int key)
+int		rotation_x(t_fdf *global, int key)
 {
 	int i;
+	int j;
 
-	i = 125;
+	i = 91;
+	j = 84;
 	if (key == i)
 	{
-		global->coords.move[0] = global->coords.move[0] + 10;
+		global->coords.angle_x = global->coords.angle_x + 0.1;
 		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 		launch_map(global);
 		return (1);
 	}
+	if (key == j)
+	{
+		global->coords.angle_x = global->coords.angle_x - 0.1;
+		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+		launch_map(global);
+		return (1);
+	}
+	return (0);
+}
+
+int		rotation_y(t_fdf *global, int key)
+{
+	int i;
+	int j;
+
+	i = 88;
+	j = 86;
+	if (key == i)
+	{
+		global->coords.angle_y = global->coords.angle_y + 0.1;
+		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+		launch_map(global);
+		return (1);
+	}
+	if (key == j)
+	{
+		global->coords.angle_y = global->coords.angle_y - 0.1;
+		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+		launch_map(global);
+		return (1);
+	}
+
 	return (0);
 }

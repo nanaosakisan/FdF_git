@@ -19,6 +19,9 @@ static void		init_struct_coord(t_fdf *global)
 	global->coords.pos[1] = 0;
 	global->coords.move[0] = 0;
 	global->coords.move[1] = 0;
+	global->coords.angle_x = 0;
+	global->coords.angle_y = 0;
+	global->coords.angle_z = 0;
 }
 
 static void		init_struct_img(t_fdf *global)
@@ -42,15 +45,15 @@ void			init_struct_global(t_fdf *global)
 {
 	global->height = 0;
 	global->width = 0;
-	global->pad = 30;
+	global->pad = 50;
 	global->function[0] = &init_map;
 	global->function[1] = &close_map;
-	global->function[2] = &zoom_out;
-	global->function[3] = &zoom_in;
-	global->function[4] = &move_up;
-	global->function[5] = &move_down;
-	global->function[6] = &move_right;
-	global->function[7] = &move_left;
+	global->function[2] = &zoom;
+	global->function[3] = &move_up_and_down;
+	global->function[4] = &move_right_and_left;
+	global->function[5] = &rotation_z;
+	global->function[6] = &rotation_x;
+	global->function[7] = &rotation_y;
 	global->len_array = 8;
 	init_struct_coord(global);
 	init_struct_img(global);

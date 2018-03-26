@@ -32,11 +32,11 @@ void	mlx_pixel_put_to_image(t_fdf *global, int x, int y, int color)
     }
 }
 
-static void		draw_hor_segment(int *coord, int *diff, int *inc, t_fdf *global)
+static void		draw_hor_segment(float *coord, int *diff, int *inc, t_fdf *global)
 {
 	int i;
 	int cumul;
-	int x1;
+	float x1;
 
 	x1 = coord[1];
 	cumul = diff[1] / 2;
@@ -55,7 +55,7 @@ static void		draw_hor_segment(int *coord, int *diff, int *inc, t_fdf *global)
 	}
 }
 
-static void		draw_ver_segment(int *coord, int *diff, int *inc, t_fdf *global)
+static void		draw_ver_segment(float *coord, int *diff, int *inc, t_fdf *global)
 {
 	int i;
 	int cumul;
@@ -76,7 +76,7 @@ static void		draw_ver_segment(int *coord, int *diff, int *inc, t_fdf *global)
 	}
 }
 
-void			draw_segment(int *coord_src, int *coord_dst, t_fdf *global)
+void			draw_segment(float *coord_src, float *coord_dst, t_fdf *global)
 {
 	int diff[2];
 	int inc[2];

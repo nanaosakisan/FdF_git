@@ -33,12 +33,13 @@ static void	init_pos(t_fdf *global)
 
 void		launch_map(t_fdf *global)
 {
-	int	coord_src[2];
-	int	coord_dst[2];
-	int x;
-	int y;
+	float	coord_src[3];
+	float	coord_dst[3];
+	float	coord_rot_src[3];
+	float	coord_rot_dst[3];
+	int		tmp[2];
 
-	y = -1;
+	tmp[0] = -1;
 	init_pos(global);
 	if (!global->img.p_mlx && !global->img.p_win)
 	{
@@ -47,24 +48,39 @@ void		launch_map(t_fdf *global)
 	}
 	global->img.p_img = mlx_new_image(global->img.p_mlx, WIDTH, HEIGHT);
 	global->img.img_addr = mlx_get_data_addr(global->img.p_img, &global->img.bpp, &global->img.size, &global->img.endian);
-	while (++y < global->height)
+	while (++tmp[0] < global->height)
 	{
-		x = -1;
-		while (++x < global->width)
+		tmp[1] = -1;
+		while (++tmp[1] < global->width)
 		{
-			coord_src[0] = y * global->pad + global->coords.pos[0];
-			coord_src[1] = x * global->pad + global->coords.pos[1];
-			if (x < global->width - 1)
+			coord_src[0] = tmp[0] * global->pad;
+			coord_src[1] = tmp[1] * global->pad;
+			coord_src[2] = global->coords.points[tmp[0]][tmp[1]] * global->pad;
+			if (tmp[1] < global->width - 1)
 			{
-				coord_dst[0] = y * global->pad + global->coords.pos[0];
-				coord_dst[1] = (x + 1) * global->pad + global->coords.pos[1];
-				draw_segment(coord_src, coord_dst, global);
+				coord_dst[0] = tmp[0] * global->pad;
+				coord_dst[1] = (tmp[1] + 1) * global->pad;
+				coord_dst[2] = global->coords.points[tmp[0]][tmp[1] + 1] * global->pad;
+				rotation(global, coord_dst, coord_rot_dst);
+				rotation(global, coord_src, coord_rot_src);
+				coord_rot_src[0] = coord_rot_src[0] + global->coords.pos[0];
+				coord_rot_src[1] = coord_rot_src[1] + global->coords.pos[1];
+				coord_rot_dst[0] = coord_rot_dst[0] + global->coords.pos[0];
+				coord_rot_dst[1] = coord_rot_dst[1] + global->coords.pos[1];
+				draw_segment(coord_rot_src, coord_rot_dst, global);
 			}
-			if (y < global->height - 1)
+			if (tmp[0] < global->height - 1)
 			{
-				coord_dst[0] = (y + 1) * global->pad + global->coords.pos[0];
-				coord_dst[1] = x * global->pad + global->coords.pos[1];
-				draw_segment(coord_src,	coord_dst, global);
+				coord_dst[0] = (tmp[0] + 1) * global->pad;
+				coord_dst[1] = tmp[1] * global->pad;
+				coord_dst[2] = global->coords.points[tmp[0] + 1][tmp[1]] * global->pad;
+				rotation(global, coord_dst, coord_rot_dst);
+				rotation(global, coord_src, coord_rot_src);
+				coord_rot_src[0] = coord_rot_src[0] + global->coords.pos[0];
+				coord_rot_src[1] = coord_rot_src[1] + global->coords.pos[1];
+				coord_rot_dst[0] = coord_rot_dst[0] + global->coords.pos[0];
+				coord_rot_dst[1] = coord_rot_dst[1] + global->coords.pos[1];
+				draw_segment(coord_rot_src,	coord_rot_dst, global);
 			}
 		}
 	}

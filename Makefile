@@ -13,14 +13,15 @@
 NAME = fdf
 
 SRC_PATH = src/
-SRC_NAME =	main.c 			\
-			draw_segment.c	\
-			init_struct.c	\
-			key_hook_1.c	\
-			key_hook_2.c	\
-			launch_map.c	\
-			parsing.c		\
-			print_coords.c	\
+SRC_NAME =	main.c 				\
+			draw_segment.c		\
+			init_struct.c		\
+			key_hook_1.c		\
+			key_hook_2.c		\
+			launch_map.c		\
+			rotation_matrice.c	\
+			parsing.c			\
+			print_coords.c		\
 
 SRC =  $(addprefix $(SRC_PATH), $(SRC_NAME))
 

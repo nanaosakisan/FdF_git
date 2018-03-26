@@ -37,12 +37,12 @@ static t_point	*init_tab(t_point *coords, int len_array, int cpt)
 {
 	int i;
 
-	if (!(coords->points = (float**)ft_memalloc(sizeof(float*) * cpt)))
+	if (!(coords->points = (int**)ft_memalloc(sizeof(int*) * cpt)))
 		return (NULL);
 	i = -1;
 	while (++i < cpt)
 	{
-		if (!(coords->points[i] = (float*)ft_memalloc(sizeof(float) * len_array)))
+		if (!(coords->points[i] = (int*)ft_memalloc(sizeof(int) * len_array)))
 			return (NULL);
 	}
 	return (coords);

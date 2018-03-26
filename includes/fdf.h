@@ -20,6 +20,7 @@
 
 # define	HEIGHT	1000
 # define	WIDTH	1000
+# define	ANGLE	6
 
 typedef	struct s_img
 {
@@ -34,9 +35,12 @@ typedef	struct s_img
 
 typedef	struct	s_point
 {
-	float **points;
+	int **points;
 	int pos[2];
 	int	move[2];
+	float angle_x;
+	float angle_y;
+	float angle_z;
 }				t_point;
 
 typedef struct	s_tmp
@@ -62,18 +66,19 @@ typedef struct	s_fdf
 int				main(int ac, char **av);
 int				close_map(t_fdf *global, int key);
 int				deal_key(int key, t_fdf *global);
+void			draw_segment(float *coord_src, float *coord_dst, t_fdf *global);
 int				error(char *str);
 int				init_map(t_fdf *global, int key);
 void			init_struct_global(t_fdf *global);
 void			launch_map(t_fdf *global);
 t_fdf			*launch_parse(int fd, t_fdf *global);
-int				move_down(t_fdf *global, int key);
-int				move_left(t_fdf *global, int key);
-int				move_right(t_fdf *global, int key);
-int				move_up(t_fdf *global, int key);
+int				move_up_and_down(t_fdf *global, int key);
+int				move_right_and_left(t_fdf *global, int key);
 void			print_coords(t_fdf *global);
-void			draw_segment(int *coord_src, int *coord_dst, t_fdf *global);
-int				zoom_in(t_fdf *global, int key);
-int				zoom_out(t_fdf *global, int key);
+void			rotation(t_fdf *global, float *coord, float *point_rot);
+int				rotation_z(t_fdf *global, int key);
+int				rotation_x(t_fdf *global, int key);
+int				rotation_y(t_fdf *global, int key);
+int				zoom(t_fdf *global, int key);
 
 #endif

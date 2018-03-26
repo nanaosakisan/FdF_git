@@ -12,14 +12,23 @@
 
 #include "../includes/fdf.h"
 
-int		move_right(t_fdf *global, int key)
+int		move_up_and_down(t_fdf *global, int key)
 {
 	int i;
+	int j;
 
-	i = 124;
+	i = 126;
+	j = 125;
 	if (key == i)
 	{
-		global->coords.move[1] = global->coords.move[1] + 10;
+		global->coords.move[0] = global->coords.move[0] - 10;
+		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+		launch_map(global);
+		return (1);
+	}
+	if (key == j)
+	{
+		global->coords.move[0] = global->coords.move[0] + 10;
 		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 		launch_map(global);
 		return (1);
@@ -27,12 +36,21 @@ int		move_right(t_fdf *global, int key)
 	return (0);
 }
 
-int		move_left(t_fdf *global, int key)
+int		move_right_and_left(t_fdf *global, int key)
 {
 	int i;
+	int j;
 
-	i = 123;
+	i = 124;
+	j = 123;
 	if (key == i)
+	{
+		global->coords.move[1] = global->coords.move[1] + 10;
+		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+		launch_map(global);
+		return (1);
+	}
+	if (key == j)
 	{
 		global->coords.move[1] = global->coords.move[1] - 10;
 		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
@@ -52,6 +70,9 @@ int		init_map(t_fdf *global, int key)
 		global->pad = global->tmp.pad;
 		global->coords.move[0] = 0;
 		global->coords.move[1] = 0;
+		global->coords.angle_x = 0;
+		global->coords.angle_y = 0;
+		global->coords.angle_z = 0;
 		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 		launch_map(global);
 		return (1);

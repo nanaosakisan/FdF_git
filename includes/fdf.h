@@ -20,7 +20,6 @@
 
 # define	HEIGHT	1000
 # define	WIDTH	1000
-# define	ANGLE	6
 
 typedef	struct s_img
 {

@@ -26,7 +26,6 @@ static void		init_struct_coord(t_fdf *global)
 
 static void		init_struct_img(t_fdf *global)
 {
-
 	global->img.bpp = 0;
 	global->img.size = 0;
 	global->img.endian = 0;

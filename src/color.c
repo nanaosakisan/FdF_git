@@ -6,20 +6,19 @@
 /*   By: iporsenn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 17:05:44 by iporsenn          #+#    #+#             */
-/*   Updated: 2018/03/26 17:05:46 by iporsenn         ###   ########.fr       */
+/*   Updated: 2018/03/28 19:42:31 by iporsenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+#include <stdio.h>
 
-int	select_color(t_fdf *global)
+int	display_color(t_fdf *global)
 {
-	int color;
-	int i;
+	int			color;
 
 	color = 0xFFFFFF;
-	i = 0;
-	while (i < global->bonus.buh)
-		color = color - 20;
+	color = color - global->coords.points[global->tmp.y][global->tmp.x] * global->pad_z;
+	printf("color = %x\n", color);
 	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: iporsenn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 13:53:30 by iporsenn          #+#    #+#             */
-/*   Updated: 2018/03/28 15:45:20 by iporsenn         ###   ########.fr       */
+/*   Updated: 2018/03/28 18:14:02 by iporsenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static void	init_window(t_fdf *global)
 
 static void	x_gestion(t_fdf *global, int x, int y, float *coord_src)
 {
-	float coord_dst[3];
-	float coord_rot_dst[3];
-	float coord_rot_src[3];
+	float	coord_dst[3];
+	float	coord_rot_dst[3];
+	float	coord_rot_src[3];
 
 	coord_dst[0] = y * global->pad;
 	coord_dst[1] = (x + 1) * global->pad;
@@ -70,9 +70,9 @@ static void	x_gestion(t_fdf *global, int x, int y, float *coord_src)
 
 static void	y_gestion(t_fdf *global, int x, int y, float *coord_src)
 {
-	float coord_dst[3];
-	float coord_rot_dst[3];
-	float coord_rot_src[3];
+	float	coord_dst[3];
+	float	coord_rot_dst[3];
+	float	coord_rot_src[3];
 
 	coord_dst[0] = (y + 1) * global->pad;
 	coord_dst[1] = x * global->pad;
@@ -89,28 +89,26 @@ static void	y_gestion(t_fdf *global, int x, int y, float *coord_src)
 void		launch_map(t_fdf *global)
 {
 	float	coord_src[3];
-	int		y;
-	int		x;
 
-	y = -1;
 	if (!global->img.p_mlx && !global->img.p_win)
 		init_window(global);
 	init_pos(global);
 	global->img.p_img = mlx_new_image(global->img.p_mlx, WIDTH, HEIGHT);
 	global->img.img_addr = mlx_get_data_addr(global->img.p_img,
 					&global->img.bpp, &global->img.size, &global->img.endian);
-	while (++y < global->height)
+	global->tmp.y = -1;
+	while (++global->tmp.y < global->height)
 	{
-		x = -1;
-		while (++x < global->width)
+		global->tmp.x = -1;
+		while (++global->tmp.x < global->width)
 		{
-			coord_src[0] = y * global->pad;
-			coord_src[1] = x * global->pad;
-			coord_src[2] = global->coords.points[y][x] * global->pad_z;
-			if (x < global->width - 1)
-				x_gestion(global, x, y, coord_src);
-			if (y < global->height - 1)
-				y_gestion(global, x, y, coord_src);
+			coord_src[0] = global->tmp.y * global->pad;
+			coord_src[1] = global->tmp.x * global->pad;
+			coord_src[2] = global->coords.points[global->tmp.y][global->tmp.x] * global->pad_z;
+			if (global->tmp.x < global->width - 1)
+				x_gestion(global, global->tmp.x, global->tmp.y, coord_src);
+			if (global->tmp.y < global->height - 1)
+				y_gestion(global, global->tmp.x, global->tmp.y, coord_src);
 		}
 	}
 	mlx_put_image_to_window(global->img.p_mlx, global->img.p_win,

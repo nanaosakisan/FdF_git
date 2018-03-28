@@ -6,7 +6,7 @@
 /*   By: iporsenn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 14:59:34 by iporsenn          #+#    #+#             */
-/*   Updated: 2018/03/28 15:54:20 by iporsenn         ###   ########.fr       */
+/*   Updated: 2018/03/28 18:11:47 by iporsenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct	s_tmp
 {
 	int		pad;
 	int		pad_z;
+	int		x;
+	int		y;
 }				t_tmp;
 
 typedef	struct	s_bonus
@@ -72,6 +74,7 @@ typedef struct	s_fdf
 int				main(int ac, char **av);
 int				close_map(t_fdf *global, int key);
 int				deal_key(int key, t_fdf *global);
+int				display_color(t_fdf *global);
 void			draw_segment(float *coord_src, float *coord_dst, t_fdf *global);
 int				error(char *str);
 int				increase_decrease_z(t_fdf *global, int key);
@@ -84,7 +87,6 @@ int				move_right_and_left(t_fdf *global, int key);
 void			print_coords(t_fdf *global);
 void			rotation(t_fdf *global, float *coord, float *point_rot);
 int				rotation_z(t_fdf *global, int key);
-int				select_color(t_fdf *global);
 int				zoom(t_fdf *global, int key);
 
 #endif

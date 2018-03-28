@@ -6,7 +6,7 @@
 /*   By: iporsenn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:47:03 by iporsenn          #+#    #+#             */
-/*   Updated: 2018/03/28 15:53:12 by iporsenn         ###   ########.fr       */
+/*   Updated: 2018/03/28 18:05:04 by iporsenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void		init_struct_tmp(t_fdf *global)
 {
 	global->tmp.pad = global->pad;
 	global->tmp.pad_z = global->pad_z;
+	global->tmp.x = -1;
+	global->tmp.y = -1;
 }
 
 void			init_struct_global(t_fdf *global)

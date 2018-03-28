@@ -6,7 +6,7 @@
 /*   By: iporsenn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 14:59:34 by iporsenn          #+#    #+#             */
-/*   Updated: 2018/03/08 14:59:35 by iporsenn         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:54:20 by iporsenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,38 @@ typedef	struct s_img
 
 typedef	struct	s_point
 {
-	int **points;
-	int pos[2];
-	int	move[2];
-	float angle_x;
-	float angle_y;
-	float angle_z;
+	int		**points;
+	int		pos[2];
+	int		move[2];
+	float	angle_x;
+	float	angle_y;
+	float	angle_z;
 }				t_point;
 
 typedef struct	s_tmp
 {
 	int		pad;
-	float	new_points[2];
+	int		pad_z;
 }				t_tmp;
+
+typedef	struct	s_bonus
+{
+	int buh;
+}				t_bon;
 
 typedef struct	s_fdf
 {
 	t_point coords;
 	t_img	img;
 	t_tmp	tmp;
-	int		(*function[8]) (struct s_fdf*, int);
+	t_bon	bonus;
+	int		(*function[7]) (struct s_fdf*, int);
 	int		len_array;
 	char 	*name;
 	int		height;
 	int 	width;
 	int		pad;
+	int 	pad_z;
 }				t_fdf;
 
 
@@ -67,6 +74,7 @@ int				close_map(t_fdf *global, int key);
 int				deal_key(int key, t_fdf *global);
 void			draw_segment(float *coord_src, float *coord_dst, t_fdf *global);
 int				error(char *str);
+int				increase_decrease_z(t_fdf *global, int key);
 int				init_map(t_fdf *global, int key);
 void			init_struct_global(t_fdf *global);
 void			launch_map(t_fdf *global);
@@ -76,8 +84,7 @@ int				move_right_and_left(t_fdf *global, int key);
 void			print_coords(t_fdf *global);
 void			rotation(t_fdf *global, float *coord, float *point_rot);
 int				rotation_z(t_fdf *global, int key);
-int				rotation_x(t_fdf *global, int key);
-int				rotation_y(t_fdf *global, int key);
+int				select_color(t_fdf *global);
 int				zoom(t_fdf *global, int key);
 
 #endif

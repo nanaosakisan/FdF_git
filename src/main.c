@@ -6,7 +6,7 @@
 /*   By: iporsenn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 14:58:32 by iporsenn          #+#    #+#             */
-/*   Updated: 2018/03/08 14:58:33 by iporsenn         ###   ########.fr       */
+/*   Updated: 2018/03/28 14:13:56 by iporsenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		main(int ac, char **av)
 		launch_parse(fd, &global);
 		launch_map(&global);
 		mlx_key_hook(global.img.p_win, deal_key, (void*)&global);
-		// mlx_mouse_hook(global.img.p_win, deal_key, (void*)0);
+		//mlx_mouse_hook(global.img.p_win, deal_key, (void*)0);
 		mlx_loop(global.img.p_mlx);
 		if ((close(fd)) == -1)
 			error("closed() failed");

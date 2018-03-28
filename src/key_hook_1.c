@@ -6,7 +6,7 @@
 /*   By: iporsenn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 15:02:55 by iporsenn          #+#    #+#             */
-/*   Updated: 2018/03/21 15:02:57 by iporsenn         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:57:02 by iporsenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ int		init_map(t_fdf *global, int key)
 	if (key == i)
 	{
 		global->pad = global->tmp.pad;
+		global->pad_z = global->tmp.pad_z;
 		global->coords.move[0] = 0;
 		global->coords.move[1] = 0;
-		global->coords.angle_x = 0;
-		global->coords.angle_y = 0;
+		global->coords.angle_x = 0.2;
+		global->coords.angle_y = -0.1;
 		global->coords.angle_z = 0;
 		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 		launch_map(global);

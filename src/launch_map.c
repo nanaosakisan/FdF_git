@@ -35,7 +35,7 @@ static void	init_window(t_fdf *global)
 {
 	int x;
 	int y;
-	
+
 	global->img.p_mlx = mlx_init();
 	global->img.p_win = mlx_new_window(global->img.p_mlx, WIDTH, HEIGHT,
 																global->name);

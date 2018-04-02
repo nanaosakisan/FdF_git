@@ -19,6 +19,5 @@ int	display_color(t_fdf *global)
 
 	color = 0xFFFFFF;
 	color = color - global->coords.points[global->tmp.y][global->tmp.x] * global->pad_z;
-	printf("color = %x\n", color);
 	return (color);
 }

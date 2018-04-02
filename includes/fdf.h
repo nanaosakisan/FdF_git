@@ -62,7 +62,9 @@ typedef struct	s_fdf
 	t_tmp	tmp;
 	t_bon	bonus;
 	int		(*function[7]) (struct s_fdf*, int);
+	int		(*function_mouse[1]) (struct s_fdf*, int, int, int);
 	int		len_array;
+	int		len_array_mouse;
 	char 	*name;
 	int		height;
 	int 	width;
@@ -82,11 +84,13 @@ int				init_map(t_fdf *global, int key);
 void			init_struct_global(t_fdf *global);
 void			launch_map(t_fdf *global);
 t_fdf			*launch_parse(int fd, t_fdf *global);
+int				mouse_hook(int key, int x, int y, t_fdf *global);
 int				move_up_and_down(t_fdf *global, int key);
 int				move_right_and_left(t_fdf *global, int key);
 void			print_coords(t_fdf *global);
 void			rotation(t_fdf *global, float *coord, float *point_rot);
 int				rotation_z(t_fdf *global, int key);
 int				zoom(t_fdf *global, int key);
+int				zoom_clic(t_fdf *global, int key, int x, int y);
 
 #endif

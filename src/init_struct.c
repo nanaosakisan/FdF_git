@@ -56,7 +56,9 @@ void			init_struct_global(t_fdf *global)
 	global->function[4] = &move_right_and_left;
 	global->function[5] = &rotation_z;
 	global->function[6] = &increase_decrease_z;
+	global->function_mouse[0] = &zoom_clic;
 	global->len_array = 7;
+	global->len_array_mouse = 1;
 	global->bonus.buh = 0;
 	init_struct_coord(global);
 	init_struct_img(global);

@@ -32,8 +32,9 @@ int		main(int ac, char **av)
 		global.name = av[1];
 		launch_parse(fd, &global);
 		launch_map(&global);
-		mlx_key_hook(global.img.p_win, deal_key, (void*)&global);
-		//mlx_mouse_hook(global.img.p_win, deal_key, (void*)0);
+		// mlx_key_hook(global.img.p_win, deal_key, (void*)&global);
+		mlx_hook(global.img.p_win, 2, (1L << 0), deal_key, &global);
+		mlx_mouse_hook(global.img.p_win, mouse_hook, &global);
 		mlx_loop(global.img.p_mlx);
 		if ((close(fd)) == -1)
 			error("closed() failed");

@@ -93,5 +93,4 @@ void			draw_segment(float *coord_src, float *coord_dst, t_fdf *global)
 		draw_hor_segment(coord_src, diff, inc, global);
 	else
 		draw_ver_segment(coord_src, diff, inc, global);
-	ft_putendl("fin draw");
 }

@@ -20,6 +20,7 @@ SRC_NAME =	main.c 				\
 			key_hook_1.c		\
 			key_hook_2.c		\
 			launch_map.c		\
+			mouse_hook.c		\
 			rotation_matrice.c	\
 			parsing.c			\
 			print_coords.c		\

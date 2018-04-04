@@ -16,6 +16,7 @@
 # include	"../minilibx_macos/mlx.h"
 # include	"../libft/include/libft.h"
 # include	<math.h>
+# include	<stdio.h>
 
 
 # define	HEIGHT	1000
@@ -40,6 +41,7 @@ typedef	struct	s_point
 	float	angle_x;
 	float	angle_y;
 	float	angle_z;
+	int		color;
 }				t_point;
 
 typedef struct	s_tmp
@@ -50,18 +52,12 @@ typedef struct	s_tmp
 	int		y;
 }				t_tmp;
 
-typedef	struct	s_bonus
-{
-	int buh;
-}				t_bon;
-
 typedef struct	s_fdf
 {
 	t_point coords;
 	t_img	img;
 	t_tmp	tmp;
-	t_bon	bonus;
-	int		(*function[7]) (struct s_fdf*, int);
+	int		(*function[8]) (struct s_fdf*, int);
 	int		(*function_mouse[1]) (struct s_fdf*, int, int, int);
 	int		len_array;
 	int		len_array_mouse;
@@ -76,7 +72,7 @@ typedef struct	s_fdf
 int				main(int ac, char **av);
 int				close_map(t_fdf *global, int key);
 int				deal_key(int key, t_fdf *global);
-int				display_color(t_fdf *global);
+int				display_color(t_fdf *global, int key);
 void			draw_segment(float *coord_src, float *coord_dst, t_fdf *global);
 int				error(char *str);
 int				increase_decrease_z(t_fdf *global, int key);

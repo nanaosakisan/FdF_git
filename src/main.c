@@ -22,11 +22,14 @@ int		main(int ac, char **av)
 {
 	int 	fd;
 	t_fdf	global;
+	// int		test;
 
 	if (ac != 2 || !av)
 		error("usage: ./fdf filename");
 	else
 	{
+		// test = 42;
+		// printf("ret = %s\n", ft_itoa_base(test, 16));
 		if ((fd = open(av[1], O_RDONLY)) == -1)
 			error("open() failed");
 		global.name = av[1];

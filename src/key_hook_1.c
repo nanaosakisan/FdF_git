@@ -14,88 +14,57 @@
 
 int		move_up_and_down(t_fdf *global, int key)
 {
-	int i;
-	int j;
-
-	i = 126;
-	j = 125;
-	if (key == i)
-	{
+	if (key != 125 && key != 126)
+		return (0);
+	if (key == 126)
 		global->coords.move[0] = global->coords.move[0] - 10;
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
-	}
-	if (key == j)
-	{
+	if (key == 125)
 		global->coords.move[0] = global->coords.move[0] + 10;
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
-	}
-	return (0);
+	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+	launch_map(global);
+	return (1);
 }
 
 int		move_right_and_left(t_fdf *global, int key)
 {
-	int i;
-	int j;
-
-	i = 124;
-	j = 123;
-	if (key == i)
-	{
+	if (key != 124 && key != 123)
+		return (0);
+	if (key == 124)
 		global->coords.move[1] = global->coords.move[1] + 10;
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
-	}
-	if (key == j)
-	{
+	if (key == 123)
 		global->coords.move[1] = global->coords.move[1] - 10;
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
-	}
-	return (0);
+	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+	launch_map(global);
+	return (1);
 }
 
 int		init_map(t_fdf *global, int key)
 {
-	int i;
-
-	i = 82;
-	if (key == i)
-	{
-		global->pad = global->tmp.pad;
-		global->pad_z = global->tmp.pad_z;
-		global->coords.move[0] = 0;
-		global->coords.move[1] = 0;
-		global->coords.angle_x = 0.2;
-		global->coords.angle_y = -0.1;
-		global->coords.angle_z = 0;
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
-	}
-	return (0);
+	if (key != 82)
+		return (0);
+	global->pad = global->tmp.pad;
+	global->pad_z = global->tmp.pad_z;
+	global->coords.move[0] = 0;
+	global->coords.move[1] = 0;
+	global->coords.angle_x = 0.2;
+	global->coords.angle_y = -0.1;
+	global->coords.angle_z = 0;
+	global->coords.color = 0xFFFFFF;
+	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+	launch_map(global);
+	return (1);
 }
 
 int		close_map(t_fdf *global, int key)
 {
-	int i;
-
-	i = 53;
-	if (key == i)
-	{
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		global->img.p_mlx = NULL;
-		global->img.p_win = NULL;
-		global->img.p_img = NULL;
-		global->img.img_addr = NULL;
-		exit(EXIT_FAILURE);
-	}
-	return (0);
+	if (key != 53)
+		return (0);
+	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+	global->img.p_mlx = NULL;
+	global->img.p_win = NULL;
+	global->img.p_img = NULL;
+	global->img.img_addr = NULL;
+	exit(EXIT_FAILURE);
 }
 
 int		deal_key(int key, t_fdf *global)

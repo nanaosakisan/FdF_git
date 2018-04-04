@@ -51,7 +51,7 @@ static void		draw_hor_segment(float *coord, int *diff, int *inc, t_fdf *global)
 			coord[0] += inc[0];
 		}
 		if ((x1 > 0 && x1 < WIDTH) && (coord[0] > 0 && coord[0] < HEIGHT))
-			mlx_pixel_put_to_image(global, x1, coord[0], display_color(global));
+			mlx_pixel_put_to_image(global, x1, coord[0], global->coords.color);
 	}
 }
 
@@ -72,7 +72,7 @@ static void		draw_ver_segment(float *coord, int *diff, int *inc, t_fdf *global)
 			coord[1] += inc[1];
 		}
 		if ((coord[1] > 0 && coord[1] < WIDTH) && (coord[0] > 0 && coord[0] < HEIGHT))
-			mlx_pixel_put_to_image(global, coord[1], coord[0], display_color(global));
+			mlx_pixel_put_to_image(global, coord[1], coord[0], global->coords.color);
 	}
 }
 
@@ -88,7 +88,7 @@ void			draw_segment(float *coord_src, float *coord_dst, t_fdf *global)
 	diff[0] = abs(diff[0]);
 	diff[1] = abs(diff[1]);
 	if ((coord_src[1] > 0 && coord_src[1] < WIDTH) && (coord_src[0] > 0 && coord_src[0] < HEIGHT))
-		mlx_pixel_put_to_image(global, coord_src[1], coord_src[0], display_color(global));
+		mlx_pixel_put_to_image(global, coord_src[1], coord_src[0], global->coords.color);
 	if (diff[1] > diff[0])
 		draw_hor_segment(coord_src, diff, inc, global);
 	else

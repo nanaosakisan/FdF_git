@@ -14,91 +14,88 @@
 
 int		zoom(t_fdf *global, int key)
 {
-	int	i;
-	int j;
-
-	i = 116;
-	j = 121;
-	if (key == i)
+	if (key != 116 && key != 121)
+		return (0);
+	if (key == 116)
 	{
 		global->pad = global->pad + 1;
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
+		global->coords.move[0] = global->coords.move[0];
+		global->coords.move[1] = global->coords.move[1];
+
 	}
-	if (key == j)
+	if (key == 121)
 	{
 		if (global->pad > 0)
-		{
 			global->pad = global->pad - 1;
-			mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-			launch_map(global);
-		}
 		else
-			global->pad = global->pad + 1;
-		return (1);
+			global->pad = global->pad;
 	}
-	return (0);
+	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+	launch_map(global);
+	return (1);
 }
 
 int		rotation_z(t_fdf *global, int key)
 {
 	static int	cpt;
-	int			i;
-	int			j;
-	int			k;
 
-	k = 256;
-	if (key == k)
+	if (key != 256 && key != 47 && key != 43)
+		return (0);
+	if (key == 256)
 	{
 		if (cpt == 2)
 			cpt = 0;
 		else
 			cpt++;
 	}
-	i = 47;
-    j = 43;
-    if (key == i)
-	{		
-		(cpt == 0) ? (global->coords.angle_x = global->coords.angle_x + 0.1) : (global->coords.angle_x = global->coords.angle_x);
-		(cpt == 1) ? (global->coords.angle_y = global->coords.angle_y + 0.1) : (global->coords.angle_y = global->coords.angle_y);
-		(cpt == 2) ? (global->coords.angle_z = global->coords.angle_z + 0.1) : (global->coords.angle_z = global->coords.angle_z);
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
-	}
-	if (key == j)
+    if (key == 47)
 	{
-		(cpt == 0) ? (global->coords.angle_x = global->coords.angle_x - 0.1) : (global->coords.angle_x = global->coords.angle_x);
-		(cpt == 1) ? (global->coords.angle_y = global->coords.angle_y - 0.1) : (global->coords.angle_y = global->coords.angle_y);
-		(cpt == 2) ? (global->coords.angle_z = global->coords.angle_z - 0.1) : (global->coords.angle_z = global->coords.angle_z);
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
+		(cpt == 0) ? (global->coords.angle_x = global->coords.angle_x + 0.1) :
+							(global->coords.angle_x = global->coords.angle_x);
+		(cpt == 1) ? (global->coords.angle_y = global->coords.angle_y + 0.1) :
+							(global->coords.angle_y = global->coords.angle_y);
+		(cpt == 2) ? (global->coords.angle_z = global->coords.angle_z + 0.1) :
+							(global->coords.angle_z = global->coords.angle_z);
+
 	}
-	return (0);
+	if (key == 43)
+	{
+		(cpt == 0) ? (global->coords.angle_x = global->coords.angle_x - 0.1) :
+							(global->coords.angle_x = global->coords.angle_x);
+		(cpt == 1) ? (global->coords.angle_y = global->coords.angle_y - 0.1) :
+							(global->coords.angle_y = global->coords.angle_y);
+		(cpt == 2) ? (global->coords.angle_z = global->coords.angle_z - 0.1) :
+							(global->coords.angle_z = global->coords.angle_z);
+	}
+	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+	launch_map(global);
+	return (1);
 }
 
 int		increase_decrease_z(t_fdf *global, int key)
 {
-	int i;
-	int j;
-
-	i = 69;
-	j = 78;
-	if (key == i)
-	{
+	if (key != 69 && key != 78)
+		return (0);
+	if (key == 69)
 		global->pad_z = global->pad_z + 1;
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
-	}
-	if (key == j)
-	{
+	if (key == 78)
 		global->pad_z = global->pad_z - 1;
-		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
-		launch_map(global);
-		return (1);
-	}
-	return (0);
+	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+	launch_map(global);
+	return (1);
+}
+
+int		display_color(t_fdf *global, int key)
+{
+	if (key != 83 && key != 85 && key !=86 && key != 88 && key != 89 && key != 92)
+		return (0);
+	if (key == 89 || key == 92)
+		(key == 92) ? (global->coords.color = global->coords.color + 0x080000) : (global->coords.color = global->coords.color - 0x080000);
+	if (key == 86 || key == 88)
+		(key == 88) ? (global->coords.color = global->coords.color + 0x000800) : (global->coords.color = global->coords.color - 0x000800);
+	if (key == 83 || key == 85)
+		(key == 85) ? (global->coords.color = global->coords.color - 0x000008) : (global->coords.color = global->coords.color + 0x000008);
+	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+	launch_map(global);
+	return (1);
 }

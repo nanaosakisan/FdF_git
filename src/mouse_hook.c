@@ -15,19 +15,15 @@
 int zoom_clic(t_fdf *global, int key, int x, int y)
 {
 	int i;
-	int diff_y;
-	int diff_x;
 
 	i = 1;
-	diff_y = (1 / 2 * HEIGHT) - ((1 / 2 * HEIGHT) - (1 / 2 * global->height));
-	diff_x = (1 / 2 * WIDTH) - ((1 / 2 * WIDTH) - (1 / 2 * global->width));
 	if (!x && !y)
 		return (0);
 	if (key == i)
 	{
 		global->pad = global->pad + 1;
-		global->coords.move[0] = global->coords.move[0] - diff_y;
-		global->coords.move[1] = global->coords.move[1] - diff_x;
+		global->coords.move[0] = global->coords.move[0];
+		global->coords.move[1] = global->coords.move[1];
 		mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 		launch_map(global);
 		return (1);

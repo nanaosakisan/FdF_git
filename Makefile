@@ -14,7 +14,6 @@ NAME = fdf
 
 SRC_PATH = src/
 SRC_NAME =	main.c 				\
-			color.c				\
 			draw_segment.c		\
 			init_struct.c		\
 			key_hook_1.c		\

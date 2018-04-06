@@ -50,6 +50,7 @@ int		init_map(t_fdf *global, int key)
 	global->coords.angle_y = -0.1;
 	global->coords.angle_z = 0;
 	global->coords.color = 0xFFFFFF;
+	init_pos(global);
 	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 	launch_map(global);
 	return (1);

@@ -19,14 +19,17 @@ int		zoom(t_fdf *global, int key)
 	if (key == 116)
 	{
 		global->pad = global->pad + 1;
-		global->coords.move[0] = global->coords.move[0];
-		global->coords.move[1] = global->coords.move[1];
-
+		global->coords.pos[0] = global->coords.pos[0] - 5;
+		global->coords.pos[1] = global->coords.pos[1] - 9;
 	}
 	if (key == 121)
 	{
 		if (global->pad > 0)
+		{
 			global->pad = global->pad - 1;
+			global->coords.pos[0] = global->coords.pos[0] + 5;
+			global->coords.pos[1] = global->coords.pos[1] + 9;
+		}
 		else
 			global->pad = global->pad;
 	}

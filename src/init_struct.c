@@ -61,6 +61,8 @@ void			init_struct_global(t_fdf *global)
 	global->function[6] = &increase_decrease_z;
 	global->function[7] = &display_color;
 	global->len_array = 8;
+	global->bonus.p_img_bonus = NULL;
+	global->bonus.img_addr_bonus = NULL;
 	init_struct_coord(global);
 	init_struct_img(global);
 	init_struct_tmp(global);

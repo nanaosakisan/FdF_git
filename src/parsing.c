@@ -74,6 +74,7 @@ static t_fdf	*parse_coords(t_fdf *global, char *line, int cpt)
 		fill_tab(&global->coords, array, y, len_array);
 		global->width = len_array;
 		global->height = cpt;
+		free_array(array, len_array);
 	}
 	else
 		return (0);

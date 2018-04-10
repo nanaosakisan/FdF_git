@@ -42,6 +42,8 @@ static void		init_struct_tmp(t_fdf *global)
 	global->tmp.pad_z = global->pad_z;
 	global->tmp.x = -1;
 	global->tmp.y = -1;
+	global->tmp.diff_y = 0;
+	global->tmp.diff_x = 0;
 }
 
 void			init_struct_global(t_fdf *global)
@@ -58,9 +60,7 @@ void			init_struct_global(t_fdf *global)
 	global->function[5] = &rotation_z;
 	global->function[6] = &increase_decrease_z;
 	global->function[7] = &display_color;
-	global->function_mouse[0] = &zoom_clic;
 	global->len_array = 8;
-	global->len_array_mouse = 1;
 	init_struct_coord(global);
 	init_struct_img(global);
 	init_struct_tmp(global);

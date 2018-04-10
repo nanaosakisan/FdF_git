@@ -1,4 +1,4 @@
-/* **********p**************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
@@ -10,27 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	FDF_H
-# define FDF_H
+#ifndef		FDF_H
+# define	FDF_H
 
 # include	"../minilibx_macos/mlx.h"
 # include	"../libft/include/libft.h"
 # include	<math.h>
 # include	<stdio.h>
 
+# define	HEIGHT			1000
+# define	WIDTH			1000
+# define	HEIGHT_BONUS	200
 
-# define	HEIGHT	1000
-# define	WIDTH	1000
-
-typedef	struct s_img
+typedef	struct	s_img
 {
-	void 	*p_mlx;
+	void	*p_mlx;
 	void	*p_win;
 	void	*p_img;
 	char	*img_addr;
 	int		bpp;
 	int		size;
-	int 	endian;
+	int		endian;
 }				t_img;
 
 typedef	struct	s_point
@@ -50,6 +50,8 @@ typedef struct	s_tmp
 	int		pad_z;
 	int		x;
 	int		y;
+	int		diff_y;
+	int		diff_x;
 }				t_tmp;
 
 typedef struct	s_fdf
@@ -58,16 +60,13 @@ typedef struct	s_fdf
 	t_img	img;
 	t_tmp	tmp;
 	int		(*function[8]) (struct s_fdf*, int);
-	int		(*function_mouse[1]) (struct s_fdf*, int, int, int);
 	int		len_array;
-	int		len_array_mouse;
-	char 	*name;
+	char	*name;
 	int		height;
-	int 	width;
+	int		width;
 	int		pad;
-	int 	pad_z;
+	int		pad_z;
 }				t_fdf;
-
 
 int				main(int ac, char **av);
 int				close_map(t_fdf *global, int key);
@@ -75,18 +74,18 @@ int				deal_key(int key, t_fdf *global);
 int				display_color(t_fdf *global, int key);
 void			draw_segment(float *coord_src, float *coord_dst, t_fdf *global);
 int				error(char *str);
+void			free_array(char **array, int len_array);
+void			free_coord(t_fdf *global);
 int				increase_decrease_z(t_fdf *global, int key);
 int				init_map(t_fdf *global, int key);
+void			init_pos(t_fdf *global);
 void			init_struct_global(t_fdf *global);
 void			launch_map(t_fdf *global);
 t_fdf			*launch_parse(int fd, t_fdf *global);
-int				mouse_hook(int key, int x, int y, t_fdf *global);
 int				move_up_and_down(t_fdf *global, int key);
 int				move_right_and_left(t_fdf *global, int key);
-void			print_coords(t_fdf *global);
 void			rotation(t_fdf *global, float *coord, float *point_rot);
 int				rotation_z(t_fdf *global, int key);
 int				zoom(t_fdf *global, int key);
-int				zoom_clic(t_fdf *global, int key, int x, int y);
 
 #endif

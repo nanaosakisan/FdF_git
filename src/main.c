@@ -20,24 +20,19 @@ int		error(char *str)
 
 int		main(int ac, char **av)
 {
-	int 	fd;
+	int		fd;
 	t_fdf	global;
-	// int		test;
 
 	if (ac != 2 || !av)
 		error("usage: ./fdf filename");
 	else
 	{
-		// test = 42;
-		// printf("ret = %s\n", ft_itoa_base(test, 16));
 		if ((fd = open(av[1], O_RDONLY)) == -1)
 			error("open() failed");
 		global.name = av[1];
 		launch_parse(fd, &global);
 		launch_map(&global);
-		// mlx_key_hook(global.img.p_win, deal_key, (void*)&global);
 		mlx_hook(global.img.p_win, 2, (1L << 0), deal_key, &global);
-		mlx_mouse_hook(global.img.p_win, mouse_hook, &global);
 		mlx_loop(global.img.p_mlx);
 		if ((close(fd)) == -1)
 			error("closed() failed");

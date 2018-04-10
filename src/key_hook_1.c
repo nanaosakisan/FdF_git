@@ -16,9 +16,9 @@ int		move_up_and_down(t_fdf *global, int key)
 {
 	if (key != 125 && key != 126)
 		return (0);
-	if (key == 126)
+	else if (key == 126)
 		global->coords.move[0] = global->coords.move[0] - 10;
-	if (key == 125)
+	else if (key == 125)
 		global->coords.move[0] = global->coords.move[0] + 10;
 	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 	launch_map(global);
@@ -29,9 +29,9 @@ int		move_right_and_left(t_fdf *global, int key)
 {
 	if (key != 124 && key != 123)
 		return (0);
-	if (key == 124)
+	else if (key == 124)
 		global->coords.move[1] = global->coords.move[1] + 10;
-	if (key == 123)
+	else if (key == 123)
 		global->coords.move[1] = global->coords.move[1] - 10;
 	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 	launch_map(global);
@@ -60,6 +60,7 @@ int		close_map(t_fdf *global, int key)
 {
 	if (key != 53)
 		return (0);
+	free_coord(global);
 	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 	global->img.p_mlx = NULL;
 	global->img.p_win = NULL;

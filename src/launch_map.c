@@ -19,7 +19,7 @@ static void	init_window(t_fdf *global)
 
 	global->img.p_mlx = mlx_init();
 	global->img.p_win = mlx_new_window(global->img.p_mlx, WIDTH, \
-										HEIGHT + HEIGHT_BONUS, global->name);
+										HEIGHT + HEIGHT_UI, global->name);
 	x = global->pad * global->width - 1;
 	y = global->pad * global->height - 1;
 	while (x > WIDTH || y > HEIGHT)
@@ -107,5 +107,4 @@ void		launch_map(t_fdf *global)
 	cpt++;
 	mlx_put_image_to_window(global->img.p_mlx, global->img.p_win, \
 													global->img.p_img, 0, 0);
-	bonus(global);
 }

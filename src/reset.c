@@ -22,7 +22,7 @@ void	free_coord(t_fdf *global)
 	ft_memdel((void**)&global->coords.points);
 }
 
-void	free_array(char **array, int len_array)
+void free_array(char **array, int len_array)
 {
 	int i;
 

@@ -32,10 +32,12 @@ int		main(int ac, char **av)
 		global.name = av[1];
 		launch_parse(fd, &global);
 		launch_map(&global);
+		left_ui(&global);
 		mlx_hook(global.img.p_win, 2, (1L << 0), deal_key, &global);
 		mlx_loop(global.img.p_mlx);
 		if ((close(fd)) == -1)
 			error("closed() failed");
 	}
+	free_coord(&global);
 	return (0);
 }

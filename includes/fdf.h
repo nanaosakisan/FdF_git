@@ -20,7 +20,7 @@
 
 # define	HEIGHT			1000
 # define	WIDTH			1000
-# define	HEIGHT_BONUS	200
+# define	HEIGHT_UI	200
 
 typedef	struct	s_img
 {
@@ -57,7 +57,6 @@ typedef struct	s_tmp
 typedef struct	s_bonus
 {
 	void	*p_img_bonus;
-	char	*img_addr_bonus;
 }				t_bon;
 
 typedef struct	s_fdf
@@ -76,7 +75,6 @@ typedef struct	s_fdf
 }				t_fdf;
 
 int				main(int ac, char **av);
-void			bonus(t_fdf *global);
 int				close_map(t_fdf *global, int key);
 int				deal_key(int key, t_fdf *global);
 int				display_color(t_fdf *global, int key);
@@ -90,6 +88,7 @@ void			init_pos(t_fdf *global);
 void			init_struct_global(t_fdf *global);
 void			launch_map(t_fdf *global);
 t_fdf			*launch_parse(int fd, t_fdf *global);
+void			left_ui(t_fdf *global);
 int				move_up_and_down(t_fdf *global, int key);
 int				move_right_and_left(t_fdf *global, int key);
 void			rotation(t_fdf *global, float *coord, float *point_rot);

@@ -31,25 +31,49 @@ void		init_pos(t_fdf *global)
 	global->coords.pos[1] = x / 2;
 }
 
-void		bonus(t_fdf *global)
+static void	right_ui(t_fdf *global)
+{
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 550, 1010, 0xFFFFFF, \
+															"ROTATION MAP	");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 760, 1010, 0xFFFFFF, \
+																	": </>");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 550, 1040, 0xFFFFFF, \
+											"CHANGER AXE ROTATION : CONTROL");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 550, 1070, 0xFFFFFF, \
+												"MODIFIER PROFONDEUR  : +/-");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 550, 1100, 0xFFFFFF, \
+															"CHANGER COULEUR ");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 760, 1100, 0xFFFFFF, \
+																	": CYAN ");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 859, 1100, 0xFFFFFF, \
+																	": 7/9");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 760, 1130, 0xFFFFFF, \
+															": MAGENTA : 4/6");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 760, 1160, 0xFFFFFF, \
+																": YELLOW ");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 860, 1160, 0xFFFFFF, \
+																	": 1/3");
+}
+
+void		left_ui(t_fdf *global)
 {
 	global->bonus.p_img_bonus = mlx_new_image(global->img.p_mlx, WIDTH, \
-																HEIGHT_BONUS);
-	global->img.img_addr = mlx_get_data_addr(global->img.p_img,
-					&global->img.bpp, &global->img.size, &global->img.endian);
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 10, 1000, 0xFFFFFF, "QUITTER ");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 180, 1000, 0xFFFFFF, ": ECHAP");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 10, 1050, 0xFFFFFF, "REINITIALISER MAP : 0");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 10, 1100, 0xFFFFFF, "ZOOM ");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 180, 1100, 0xFFFFFF, ": PAGE UP/DOWN");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 10, 1150, 0xFFFFFF, "DEPLACER MAP ");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 180, 1150, 0xFFFFFF, ": FLECHES DIRECTIONNELLES");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 550, 1000, 0xFFFFFF, "ROTATION MAP	");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 760, 1000, 0xFFFFFF, ": </>");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 550, 1050, 0xFFFFFF, "CHANGER AXE ROTATION : CONTROL");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 550, 1100, 0xFFFFFF, "MODIFIER PROFONDEUR  : +/-");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 550, 1150, 0xFFFFFF, "CHANGER COULEUR ");
-	mlx_string_put(global->img.p_mlx, global->img.p_win, 760, 1150, 0xFFFFFF, ": 1/3/4/6/7/9");
+																HEIGHT_UI);
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 10, 1010, 0xFFFFFF, \
+																	"QUITTER ");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 190, 1010, 0xFFFFFF, \
+																	": ECHAP");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 10, 1040, 0xFFFFFF, \
+													"REINITIALISER MAP : 0");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 10, 1070, 0xFFFFFF, \
+																	"ZOOM ");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 190, 1070, 0xFFFFFF, \
+															": PAGE UP/DOWN");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 10, 1100, 0xFFFFFF, \
+															"DEPLACER MAP ");
+	mlx_string_put(global->img.p_mlx, global->img.p_win, 190, 1100, 0xFFFFFF, \
+												": FLECHES DIRECTIONNELLES");
+	right_ui(global);
 	mlx_put_image_to_window(global->img.p_mlx, global->img.p_win, \
 										global->bonus.p_img_bonus, HEIGHT, 0);
 }

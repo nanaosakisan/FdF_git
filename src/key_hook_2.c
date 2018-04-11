@@ -106,8 +106,8 @@ int				display_color(t_fdf *global, int key)
 		(key == 92) ? (global->coords.color = global->coords.color + 0x080000) \
 					: (global->coords.color = global->coords.color - 0x080000);
 	else if (key == 86 || key == 88)
-		(key == 88) ? (global->coords.color = global->coords.color + 0x000800) \
-					: (global->coords.color = global->coords.color - 0x000800);
+		(key == 88) ? (global->coords.color = global->coords.color - 0x000800) \
+					: (global->coords.color = global->coords.color + 0x000800);
 	else if (key == 83 || key == 85)
 		(key == 85) ? (global->coords.color = global->coords.color - 0x000008) \
 					: (global->coords.color = global->coords.color + 0x000008);

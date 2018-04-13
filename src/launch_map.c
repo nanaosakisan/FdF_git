@@ -103,8 +103,6 @@ void		launch_map(t_fdf *global)
 	global->img.p_img = mlx_new_image(global->img.p_mlx, WIDTH, HEIGHT);
 	global->img.img_addr = mlx_get_data_addr(global->img.p_img,
 					&global->img.bpp, &global->img.size, &global->img.endian);
-	// free_coord(global);
-	// exit(EXIT_FAILURE);
 	lauch_draw(global);
 	cpt++;
 	mlx_put_image_to_window(global->img.p_mlx, global->img.p_win, \

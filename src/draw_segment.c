@@ -53,8 +53,10 @@ static void		draw_horizon(float *coord, int *diff, int *inc, t_fdf *global)
 			cumul -= diff[1];
 			coord[0] += inc[0];
 		}
-		if ((coord[1] > 0 && coord[1] < WIDTH) && (coord[0] > 0 && coord[0] < HEIGHT))
-			mlx_pixel_put_to_image(global, coord[1], coord[0], global->coords.color);
+		if ((coord[1] > 0 && coord[1] < WIDTH) && (coord[0] > 0 && coord[0] < \
+																		HEIGHT))
+			mlx_pixel_put_to_image(global, coord[1], coord[0], \
+														global->coords.color);
 	}
 }
 

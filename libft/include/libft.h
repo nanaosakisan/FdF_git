@@ -29,6 +29,7 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int					error(char *str);
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);
 int					count_word(const char *s, char c);

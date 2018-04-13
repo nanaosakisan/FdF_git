@@ -60,13 +60,13 @@ int		close_map(t_fdf *global, int key)
 {
 	if (key != 53)
 		return (0);
-	free_coord(global);
 	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
+	free_coord(global);
 	global->img.p_mlx = NULL;
 	global->img.p_win = NULL;
 	global->img.p_img = NULL;
 	global->img.img_addr = NULL;
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
 
 int		deal_key(int key, t_fdf *global)

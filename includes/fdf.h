@@ -16,7 +16,6 @@
 # include	"../minilibx_macos/mlx.h"
 # include	"../libft/include/libft.h"
 # include	<math.h>
-# include	<stdio.h>
 
 # define	HEIGHT			1000
 # define	WIDTH			1000
@@ -46,7 +45,7 @@ typedef	struct	s_point
 
 typedef struct	s_tmp
 {
-	int		pad;
+	float		pad;
 	int		pad_z;
 	int		x;
 	int		y;
@@ -87,7 +86,7 @@ int				init_map(t_fdf *global, int key);
 void			init_pos(t_fdf *global);
 void			init_struct_global(t_fdf *global);
 void			launch_map(t_fdf *global);
-t_fdf			*launch_parse(int fd, t_fdf *global);
+t_fdf			*launch_parse(int fd, t_fdf *global, char **av);
 void			left_ui(t_fdf *global);
 int				move_up_and_down(t_fdf *global, int key);
 int				move_right_and_left(t_fdf *global, int key);

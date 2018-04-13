@@ -13,7 +13,8 @@
 NAME = libft.a
 
 SRC_PATH = src/
-SRC_NAME =	ft_atoi.c		\
+SRC_NAME =	error.c 		\
+			ft_atoi.c		\
 			ft_bzero.c		\
 			count_word.c	\
 			ft_isalnum.c	\

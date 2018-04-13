@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+#include <stdio.h> //adw
 
 static int		check_map(char *line, int len_array)
 {
@@ -33,7 +34,7 @@ static int		check_map(char *line, int len_array)
 	return (1);
 }
 
-static t_point	*init_tab(t_point *coords, int len_array, int cpt)
+static void	*init_tab(t_point *coords, int len_array, int cpt)
 {
 	int i;
 
@@ -44,18 +45,18 @@ static t_point	*init_tab(t_point *coords, int len_array, int cpt)
 	{
 		if (!(coords->points[i] = (int*)ft_memalloc(sizeof(int) * len_array)))
 			return (NULL);
+		printf("len_array->%d\n", len_array);
 	}
-	return (coords);
+	return (NULL);
 }
 
-static t_point	*fill_tab(t_point *coords, char **array, int y, int len_array)
+static void	fill_tab(t_point *coords, char **array, int y, int len_array)
 {
 	int x;
 
 	x = -1;
 	while (++x < len_array)
 		coords->points[y][x] = ft_atoi(array[x]);
-	return (coords);
 }
 
 static t_fdf	*parse_coords(t_fdf *global, char *line, int cpt)
@@ -81,7 +82,7 @@ static t_fdf	*parse_coords(t_fdf *global, char *line, int cpt)
 	return (global);
 }
 
-t_fdf			*launch_parse(int fd, t_fdf *global)
+t_fdf			*launch_parse(int fd, t_fdf *global, char **av)
 {
 	int		ret;
 	int		cpt;
@@ -92,8 +93,10 @@ t_fdf			*launch_parse(int fd, t_fdf *global)
 	init_struct_global(global);
 	while ((ret = get_next_line(fd, &line)) > 0)
 		cpt++;
-	if ((lseek(fd, 0, SEEK_SET)) == -1)
-		error("lseek() failed");
+	if ((close(fd)) == -1)
+		error("closed() failed");
+	if ((fd = open(av[1], O_RDONLY)) == -1)
+		error("open() failed");
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		parse_coords(global, line, cpt);

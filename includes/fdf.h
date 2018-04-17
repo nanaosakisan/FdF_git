@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef		FDF_H
-# define	FDF_H
+#ifndef FDF_H
+# define FDF_H
 
-# include	"../minilibx_macos/mlx.h"
-# include	"../libft/include/libft.h"
-# include	<math.h>
+# include "../minilibx_macos/mlx.h"
+# include "../libft/include/libft.h"
+# include <math.h>
 
-# define	HEIGHT			1000
-# define	WIDTH			1000
-# define	HEIGHT_UI	200
+# define HEIGHT		1000
+# define WIDTH		1000
+# define HEIGHT_UI	200
 
 typedef	struct	s_img
 {
@@ -45,8 +45,8 @@ typedef	struct	s_point
 
 typedef struct	s_tmp
 {
-	float		pad;
-	int		pad_z;
+	float	pad;
+	float	pad_z;
 	int		x;
 	int		y;
 	int		diff_y;
@@ -69,8 +69,8 @@ typedef struct	s_fdf
 	char	*name;
 	int		height;
 	int		width;
-	int		pad;
-	int		pad_z;
+	float	pad;
+	float	pad_z;
 }				t_fdf;
 
 int				main(int ac, char **av);

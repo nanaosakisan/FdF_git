@@ -11,25 +11,24 @@
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+#include <stdio.h>
 
-static int		check_map(char *line, int len_array)
+static int		check_map(char **line)
 {
-	int			i;
 	static int	cpt_x = 0;
+	int			len_array;
+	int			i;
 
+	len_array = count_word(*line, ' ');
 	if (cpt_x == 0)
 		cpt_x = len_array;
 	if ((cpt_x != len_array) || (len_array == 0))
 		error("not a valid map");
 	i = -1;
-	while (line[++i])
-	{
-		if ((line[i] == ' ') || (line[i] == '-')
-			|| (line[i] >= '0' && line[i] <= '9'))
-			;
-		else
-			error("not a valid map");
-	}
+	while ((*line)[++i])
+		if ((*line)[i] != ' ' && (*line)[i] != '\t')
+			if (((*line)[i] < '0' || (*line)[i] > '9') && (*line)[i] != '-')
+				error("not a valid map");
 	return (1);
 }
 
@@ -65,18 +64,13 @@ static t_fdf	*parse_coords(t_fdf *global, char *line, int cpt)
 
 	len_array = count_word(line, ' ');
 	y++;
-	if ((check_map(line, len_array)) == 1)
-	{
-		array = ft_strsplit(line, ' ');
-		if (!global->coords.points)
-			init_tab(&global->coords, len_array, cpt);
-		fill_tab(&global->coords, array, y, len_array);
-		global->width = len_array;
-		global->height = cpt;
-		free_array(array, len_array);
-	}
-	else
-		return (0);
+	array = ft_strsplit(line, ' ');
+	if (!global->coords.points)
+		init_tab(&global->coords, len_array, cpt);
+	fill_tab(&global->coords, array, y, len_array);
+	global->width = len_array;
+	global->height = cpt;
+	free_array(array, len_array);
 	return (global);
 }
 
@@ -91,8 +85,10 @@ t_fdf			*launch_parse(int fd, t_fdf *global, char **av)
 	init_struct_global(global);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		ft_strdel(&line);
+		if ((check_map(&line)) != 1)
+			return (0);
 		cpt++;
+		ft_strdel(&line);
 	}
 	if ((close(fd)) == -1)
 		error("closed() failed");

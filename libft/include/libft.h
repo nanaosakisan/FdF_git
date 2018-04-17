@@ -20,7 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-# define BUFF_SIZE 10
+# define BUFF_SIZE 64
 
 typedef	struct		s_list
 {

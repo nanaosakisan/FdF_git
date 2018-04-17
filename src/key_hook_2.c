@@ -11,48 +11,29 @@
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-static void		init_diff(t_fdf *global)
-{
-	int			tmp_y;
-	int			tmp_x;
-	static int	cpt = 0;
-
-	if (cpt == 0)
-	{
-		global->pad = global->pad - 1;
-		tmp_y = global->coords.pos[0];
-		tmp_x = global->coords.pos[1];
-		init_pos(global);
-		global->tmp.diff_y = global->coords.pos[0] - tmp_y;
-		global->tmp.diff_x = global->coords.pos[1] - tmp_x;
-		global->pad = global->pad + 1;
-		init_map(global, 82);
-		cpt++;
-	}
-}
+#include <stdio.h>
 
 int				zoom(t_fdf *global, int key)
 {
+	float tmp;
+
 	if (key != 116 && key != 121)
 		return (0);
-	init_diff(global);
+	tmp = global->pad;
+	global->pad = (key == 116) ? global->pad * 1.5 : global->pad * 0.85;
 	if (key == 116)
 	{
-		global->pad = global->pad + 1;
-		global->coords.pos[0] = global->coords.pos[0] - global->tmp.diff_y;
-		global->coords.pos[1] = global->coords.pos[1] - global->tmp.diff_x;
+		global->coords.pos[0] = global->coords.pos[0] - (((global->pad * \
+								global->height) - (tmp * global->height)) / 2);
+		global->coords.pos[1] = global->coords.pos[1] - (((global->pad * \
+								global->width) - (tmp * global->width)) / 2);
 	}
 	else if (key == 121)
 	{
-		if (global->pad > 0)
-		{
-			global->pad = global->pad - 1;
-			global->coords.pos[0] = global->coords.pos[0] + global->tmp.diff_y;
-			global->coords.pos[1] = global->coords.pos[1] + global->tmp.diff_x;
-		}
-		else
-			global->pad = global->pad;
+		global->coords.pos[0] = global->coords.pos[0] - (((global->pad * \
+							global->height) - (tmp * global->height)) / 2);
+		global->coords.pos[1] = global->coords.pos[1] - (((global->pad * \
+							global->width) - (tmp * global->width)) / 2);
 	}
 	mlx_destroy_image(global->img.p_mlx, global->img.p_img);
 	launch_map(global);

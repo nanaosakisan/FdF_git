@@ -36,6 +36,6 @@ int		ft_atoi(const char *str)
 		i++;
 	}
 	if ((unsigned long long)ret > 9223372036854775807)
-		return (neg == -1) ? 0 : -1;
+		return (neg == -1) ? 0 : -1;;
 	return ((int)ret * neg);
 }

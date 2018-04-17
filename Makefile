@@ -20,8 +20,8 @@ SRC_NAME =	main.c 				\
 			key_hook_1.c		\
 			key_hook_2.c		\
 			launch_map.c		\
-			rotation_matrice.c	\
 			parsing.c			\
+			rotation_matrice.c	\
 			reset.c
 
 SRC =  $(addprefix $(SRC_PATH), $(SRC_NAME))

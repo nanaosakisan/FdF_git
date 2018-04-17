@@ -12,26 +12,6 @@
 
 #include "../include/libft.h"
 
-static	int			ft_count_word(const char *s, char c)
-{
-	int i;
-	int cpt;
-
-	i = 0;
-	cpt = 0;
-	while (s[i])
-	{
-		if (!s || !c)
-			return (0);
-		if (s[i] == c && !s[i - 1])
-			i++;
-		if ((s[i - 1] != c && s[i] == c) || (!s[i + 1] && s[i] != c))
-			cpt++;
-		i++;
-	}
-	return (cpt);
-}
-
 static	char		**ft_malloc_array(const char *s, char c)
 {
 	char	**array;
@@ -39,8 +19,8 @@ static	char		**ft_malloc_array(const char *s, char c)
 
 	array = NULL;
 	word = 0;
-	word = ft_count_word(s, c);
-	if (!(array = (char **)ft_memalloc(sizeof(char*) * word)))
+	word = count_word(s, c);
+	if (!(array = (char **)ft_memalloc(sizeof(char*) * word + 1)))
 		return (NULL);
 	array[word] = NULL;
 	return (array);
@@ -61,11 +41,14 @@ static	size_t		ft_count_letter(const char *s, int i, char c)
 	return (len);
 }
 
-static	char		**ft_fill_array(char **array, const char *s, char c)
+static	void		ft_fill_array(char **array, const char *s, char c)
 {
-	int start;
+	char	**tmp;
+	int		start;
+	int		i;
 
 	start = 0;
+	tmp = array;
 	while (s[start])
 	{
 		if ((s[start] != c && s[start - 1] == c)
@@ -79,13 +62,13 @@ static	char		**ft_fill_array(char **array, const char *s, char c)
 		else
 			start++;
 	}
-	return (array);
+	array = tmp;
+	i = -1;
 }
 
 char				**ft_strsplit(const char *s, char c)
 {
 	char	**array;
-	int i;
 
 	array = NULL;
 	if (!s || !c)
@@ -93,6 +76,5 @@ char				**ft_strsplit(const char *s, char c)
 	if (!(array = ft_malloc_array(s, c)))
 		return (NULL);
 	ft_fill_array(array, s, c);
-	i = -1;
 	return (array);
 }
